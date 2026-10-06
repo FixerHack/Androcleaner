@@ -121,7 +121,7 @@ private fun TrashRow(entry: TrashEntry, checked: Boolean, onToggle: () -> Unit) 
     AppCard(Modifier.clickable(onClick = onToggle)) {
         Row(Modifier.padding(start = 12.dp, top = 10.dp, bottom = 10.dp, end = 4.dp), verticalAlignment = Alignment.CenterVertically) {
             if (entry.isDirectory) {
-                IconBadge(Icons.Rounded.Folder, CategoryColors.Other)
+                IconBadge(Icons.Rounded.Folder, CategoryColors.System)
             } else {
                 IconBadge(category.icon, category.color)
             }

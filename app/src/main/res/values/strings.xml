@@ -42,8 +42,6 @@
     <string name="clean_confirm_action">Clean</string>
     <string name="trash">Trash</string>
     <string name="app_cache_title">App cache</string>
-    <string name="app_cache_desc">Android doesn\'t let apps clear other apps\' cache directly. Open the list and clear the biggest ones.</string>
-    <string name="app_cache_open">View</string>
 
     <string name="junk_thumbnails">Gallery thumbnails</string>
     <string name="junk_thumbnails_desc">The system recreates them when needed</string>
@@ -94,7 +92,6 @@
     <string name="apps_size_cache">Cache</string>
     <string name="apps_installed">Installed %1$s</string>
     <string name="apps_clear_cache">Clear cache</string>
-    <string name="apps_clear_cache_hint">App settings will open: tap Storage → Clear cache.</string>
     <string name="apps_uninstall">Uninstall</string>
     <string name="apps_open">Open</string>
     <string name="apps_empty_unused">No apps left unopened for more than 30 days</string>
@@ -123,6 +120,28 @@
     <string name="protection_f2">Second opinion from MalwareBazaar</string>
     <string name="protection_f3">Apps with dangerous permissions</string>
     <string name="protection_f4">Who can access camera, microphone, SMS</string>
+
+    <!-- Cache cleaning -->
+    <string name="cache_service_label">Androcleaner cache cleaner</string>
+    <string name="cache_service_summary">Presses \"Clear cache\" in Settings for you</string>
+    <string name="cache_service_description">Androcleaner uses this only when you tap \"Clear cache\". It opens each app\'s info page in Settings and presses Storage → Clear cache for you. It doesn\'t read your screen, messages or other apps.</string>
+    <string name="cache_overlay_title">Clearing cache</string>
+    <string name="cache_overlay_counter">%1$d of %2$d</string>
+    <string name="cache_overlay_stop">Stop</string>
+    <string name="cache_cleaned">Cache cleared: %1$s freed</string>
+    <string name="cache_clean_button">Clear</string>
+    <string name="cache_clean_all">Clear cache of all apps · %1$s</string>
+    <string name="cache_setup_title">Clear cache automatically</string>
+    <string name="cache_setup_text">Android only lets an app clear other apps\' cache through Settings. Turn on \"Androcleaner cache cleaner\" in Accessibility and it will press \"Clear cache\" for every app by itself — you won\'t have to do anything.</string>
+    <string name="cache_setup_restricted">If the switch is greyed out: Settings → Apps → Androcleaner → ⋮ → Allow restricted settings.</string>
+    <string name="cache_setup_enable">Turn on</string>
+    <string name="cache_setup_quick">Quick clean only</string>
+    <string name="app_cache_auto_desc">Androcleaner presses \"Clear cache\" for each app for you.</string>
+    <string name="apps_total_size">Total %1$s</string>
+    <string name="note_apk_unreadable">Couldn\'t read the package</string>
+
+    <string name="apps_empty">No apps here</string>
+    <string name="apps_empty_desc">Turn on the \"System\" filter to see preinstalled apps.</string>
 
     <!-- Plurals -->
     <plurals name="files_count">

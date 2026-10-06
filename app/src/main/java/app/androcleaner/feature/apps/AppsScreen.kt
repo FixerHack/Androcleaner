@@ -2,9 +2,7 @@ package app.androcleaner.feature.apps
 
 import android.content.Intent
 import android.net.Uri
-import android.provider.Settings
 import android.text.format.DateUtils
-import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -54,13 +52,17 @@ import app.androcleaner.ui.components.AppCard
 import app.androcleaner.ui.components.AppIcon
 import app.androcleaner.ui.components.EmptyState
 import app.androcleaner.ui.components.IconBadge
+import app.androcleaner.ui.components.GradientButton
 import app.androcleaner.ui.components.ScreenHeader
+import app.androcleaner.feature.cache.CacheTarget
+import app.androcleaner.feature.cache.rememberCacheCleaner
 
 @Composable
 fun AppsScreen(viewModel: AppsViewModel = hiltViewModel()) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     val context = LocalContext.current
     var details by remember { mutableStateOf<AppInfo?>(null) }
+    val cleanCache = rememberCacheCleaner(onFinished = viewModel::refresh)
 
     // Reload when returning from Settings / uninstall dialog.
     LifecycleResumeEffect(Unit) {
@@ -96,9 +98,25 @@ fun AppsScreen(viewModel: AppsViewModel = hiltViewModel()) {
                 if (!state.hasSizes) {
                     item { UsageAccessBanner { Permissions.requestUsageAccess(context) } }
                 }
-                if (state.apps.isEmpty() && state.sort == AppSort.UNUSED) {
+                val totalCache = state.apps.sumOf { it.sizes?.cacheBytes ?: 0 }
+                if (state.sort == AppSort.CACHE && totalCache > 0) {
                     item {
-                        EmptyState(Icons.Rounded.Apps, stringResource(R.string.apps_sort_unused), stringResource(R.string.apps_empty_unused))
+                        GradientButton(
+                            stringResource(R.string.cache_clean_all, formatBytes(totalCache)),
+                            onClick = {
+                                cleanCache(CacheTarget.Apps(state.apps.filter { (it.sizes?.cacheBytes ?: 0) > 0 }))
+                            },
+                            modifier = Modifier.fillMaxWidth(),
+                        )
+                    }
+                }
+                if (state.apps.isEmpty()) {
+                    item {
+                        if (state.sort == AppSort.UNUSED) {
+                            EmptyState(Icons.Rounded.Apps, stringResource(R.string.apps_sort_unused), stringResource(R.string.apps_empty_unused))
+                        } else {
+                            EmptyState(Icons.Rounded.Apps, stringResource(R.string.apps_empty), stringResource(R.string.apps_empty_desc))
+                        }
                     }
                 }
                 items(state.apps, key = { it.packageName }) { app ->
@@ -108,7 +126,16 @@ fun AppsScreen(viewModel: AppsViewModel = hiltViewModel()) {
         }
     }
 
-    details?.let { app -> AppDetailsSheet(app, onDismiss = { details = null }) }
+    details?.let { app ->
+        AppDetailsSheet(
+            app,
+            onDismiss = { details = null },
+            onClearCache = {
+                details = null
+                cleanCache(CacheTarget.Apps(listOf(app)))
+            },
+        )
+    }
 }
 
 @Composable
@@ -147,6 +174,8 @@ private fun AppRow(app: AppInfo, sort: AppSort, onClick: () -> Unit) {
                 Text(app.label, style = MaterialTheme.typography.titleMedium, maxLines = 1, overflow = TextOverflow.Ellipsis)
                 val subtitle = when {
                     sort == AppSort.UNUSED -> lastUsedText(app)
+                    sort == AppSort.CACHE && app.sizes != null ->
+                        stringResource(R.string.apps_total_size, formatBytes(app.sizes.totalBytes))
                     app.sizes != null -> stringResource(R.string.apps_cache_size, formatBytes(app.sizes.cacheBytes))
                     else -> app.packageName
                 }
@@ -164,7 +193,7 @@ private fun AppRow(app: AppInfo, sort: AppSort, onClick: () -> Unit) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun AppDetailsSheet(app: AppInfo, onDismiss: () -> Unit) {
+private fun AppDetailsSheet(app: AppInfo, onDismiss: () -> Unit, onClearCache: () -> Unit) {
     val context = LocalContext.current
     ModalBottomSheet(onDismissRequest = onDismiss) {
         Column(
@@ -200,15 +229,11 @@ private fun AppDetailsSheet(app: AppInfo, onDismiss: () -> Unit) {
                 ),
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
-            Button(
-                onClick = {
-                    Toast.makeText(context, R.string.apps_clear_cache_hint, Toast.LENGTH_LONG).show()
-                    context.startActivity(
-                        Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:${app.packageName}")),
-                    )
-                },
-                modifier = Modifier.fillMaxWidth(),
-            ) { Text(stringResource(R.string.apps_clear_cache)) }
+            if ((app.sizes?.cacheBytes ?: 0) > 0) {
+                Button(onClick = onClearCache, modifier = Modifier.fillMaxWidth()) {
+                    Text(stringResource(R.string.apps_clear_cache))
+                }
+            }
             Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                 context.packageManager.getLaunchIntentForPackage(app.packageName)?.let { launch ->
                     OutlinedButton(onClick = { context.startActivity(launch) }, modifier = Modifier.weight(1f)) {

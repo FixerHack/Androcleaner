@@ -61,6 +61,13 @@ class AppsRepository @Inject constructor(@ApplicationContext private val context
         }
     }
 
+    /** Current cache size of one app, or null without usage access. */
+    fun cacheBytes(packageName: String): Long? = runCatching {
+        context.getSystemService(StorageStatsManager::class.java)
+            .queryStatsForPackage(StorageManager.UUID_DEFAULT, packageName, Process.myUserHandle())
+            .cacheBytes
+    }.getOrNull()
+
     /** Package name -> versionCode for every installed package. */
     fun installedVersions(): Map<String, Long> =
         pm.getInstalledPackages(0).associate { it.packageName to it.longVersionCode }

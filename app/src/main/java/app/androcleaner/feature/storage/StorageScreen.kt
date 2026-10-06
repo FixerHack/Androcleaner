@@ -45,6 +45,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -72,12 +73,13 @@ fun StorageScreen(viewModel: StorageViewModel = hiltViewModel()) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     val snackbar = LocalSnackbar.current
     val context = LocalContext.current
+    val resources = LocalResources.current
     var confirm by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
         viewModel.results.collect { result ->
             snackbar.showSnackbar(
-                context.getString(R.string.freed_bytes, android.text.format.Formatter.formatShortFileSize(context, result.freedBytes)),
+                resources.getString(R.string.freed_bytes, android.text.format.Formatter.formatShortFileSize(context, result.freedBytes)),
             )
         }
     }
@@ -116,7 +118,7 @@ private fun OverviewCard(state: StorageUiState) {
     AppCard {
         Column(Modifier.padding(20.dp), horizontalAlignment = Alignment.CenterHorizontally) {
             DonutChart(
-                segments = state.slices.map { DonutSegment(it.bytes.toFloat(), it.category?.color ?: CategoryColors.Other.copy(alpha = 0.5f)) },
+                segments = state.slices.map { DonutSegment(it.bytes.toFloat(), it.category?.color ?: CategoryColors.System) },
                 total = info.totalBytes.toFloat(),
                 trackColor = MaterialTheme.colorScheme.surfaceVariant,
             ) {
@@ -130,7 +132,7 @@ private fun OverviewCard(state: StorageUiState) {
                 Row(Modifier.fillMaxWidth().padding(vertical = 5.dp), verticalAlignment = Alignment.CenterVertically) {
                     Box(
                         Modifier.size(12.dp).clip(CircleShape)
-                            .background(slice.category?.color ?: CategoryColors.Other.copy(alpha = 0.5f)),
+                            .background(slice.category?.color ?: CategoryColors.System),
                     )
                     Spacer(Modifier.width(12.dp))
                     Text(

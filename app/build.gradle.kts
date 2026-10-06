@@ -14,8 +14,8 @@ android {
         applicationId = "app.androcleaner"
         minSdk = 30
         targetSdk = 36
-        versionCode = 1
-        versionName = "0.1.0"
+        versionCode = 2
+        versionName = "0.2.0"
     }
 
     // Release signing comes from env vars (CI or scripts/release-local.sh) — never commit the keystore.

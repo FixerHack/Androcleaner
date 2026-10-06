@@ -17,7 +17,10 @@ object CategoryColors {
     val Documents = Color(0xFF3FA9F5)
     val Apks = Color(0xFF00C9B7)
     val Archives = Color(0xFFB07CFF)
-    val Other = Color(0xFF8E8AA3)
+    val Other = Color(0xFF9CC25A)
+
+    /** Space used by the system and apps (not visible to the file scan). */
+    val System = Color(0xFF6E6A85)
 }
 
 internal val LightBackground = Color(0xFFF7F6FB)

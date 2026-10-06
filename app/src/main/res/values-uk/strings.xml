@@ -41,8 +41,6 @@
     <string name="clean_confirm_action">Очистити</string>
     <string name="trash">Кошик</string>
     <string name="app_cache_title">Кеш апок</string>
-    <string name="app_cache_desc">Android не дозволяє чистити кеш інших апок напряму. Відкрийте список і почистіть найбільші.</string>
-    <string name="app_cache_open">Переглянути</string>
 
     <string name="junk_thumbnails">Мініатюри галереї</string>
     <string name="junk_thumbnails_desc">Система створить їх знову за потреби</string>
@@ -93,7 +91,6 @@
     <string name="apps_size_cache">Кеш</string>
     <string name="apps_installed">Встановлено %1$s</string>
     <string name="apps_clear_cache">Очистити кеш</string>
-    <string name="apps_clear_cache_hint">Відкриються налаштування апки: натисніть «Сховище» → «Очистити кеш».</string>
     <string name="apps_uninstall">Видалити</string>
     <string name="apps_open">Відкрити</string>
     <string name="apps_empty_unused">Немає апок, які ви не відкривали понад 30 днів</string>
@@ -122,6 +119,28 @@
     <string name="protection_f2">Друга думка від MalwareBazaar</string>
     <string name="protection_f3">Апки з небезпечними дозволами</string>
     <string name="protection_f4">Хто має доступ до камери, мікрофона, SMS</string>
+
+    <!-- Очищення кешу -->
+    <string name="cache_service_label">Очищення кешу Androcleaner</string>
+    <string name="cache_service_summary">Натискає «Очистити кеш» у налаштуваннях замість вас</string>
+    <string name="cache_service_description">Androcleaner використовує це лише коли ви натискаєте «Очистити кеш». Він відкриває сторінку кожної апки в налаштуваннях і сам натискає «Пам\'ять і кеш» → «Очистити кеш». Він не читає ваш екран, повідомлення чи інші апки.</string>
+    <string name="cache_overlay_title">Очищаю кеш</string>
+    <string name="cache_overlay_counter">%1$d з %2$d</string>
+    <string name="cache_overlay_stop">Зупинити</string>
+    <string name="cache_cleaned">Кеш очищено: звільнено %1$s</string>
+    <string name="cache_clean_button">Очистити</string>
+    <string name="cache_clean_all">Очистити кеш усіх апок · %1$s</string>
+    <string name="cache_setup_title">Автоматичне очищення кешу</string>
+    <string name="cache_setup_text">Android дозволяє чистити кеш інших апок лише через налаштування. Увімкніть «Очищення кешу Androcleaner» у Спеціальних можливостях — і він сам натисне «Очистити кеш» для кожної апки. Вам нічого не треба робити.</string>
+    <string name="cache_setup_restricted">Якщо перемикач неактивний: Налаштування → Додатки → Androcleaner → ⋮ → Дозволити обмежені налаштування.</string>
+    <string name="cache_setup_enable">Увімкнути</string>
+    <string name="cache_setup_quick">Лише швидке очищення</string>
+    <string name="app_cache_auto_desc">Androcleaner сам натисне «Очистити кеш» для кожної апки.</string>
+    <string name="apps_total_size">Разом %1$s</string>
+    <string name="note_apk_unreadable">Не вдалося прочитати пакет</string>
+
+    <string name="apps_empty">Тут порожньо</string>
+    <string name="apps_empty_desc">Увімкніть фільтр «Системні», щоб побачити передвстановлені апки.</string>
 
     <!-- Plurals -->
     <plurals name="files_count">

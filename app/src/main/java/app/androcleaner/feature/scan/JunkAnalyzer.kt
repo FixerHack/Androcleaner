@@ -30,7 +30,7 @@ data class JunkItem(
     val note: JunkNote? = null,
 )
 
-enum class JunkNote { APK_INSTALLED, APK_NEWER_INSTALLED, APK_NOT_INSTALLED, APP_UNINSTALLED }
+enum class JunkNote { APK_INSTALLED, APK_NEWER_INSTALLED, APK_NOT_INSTALLED, APK_UNREADABLE, APP_UNINSTALLED }
 
 data class JunkGroup(val type: JunkType, val items: List<JunkItem>) {
     val totalBytes: Long = items.sumOf { it.size }
@@ -65,15 +65,16 @@ class JunkAnalyzer @Inject constructor(private val packageManager: PackageManage
             val archive = runCatching { packageManager.getPackageArchiveInfo(f.path, 0) }.getOrNull()
             val installedVersion = archive?.let { installed[it.packageName] }
             val note = when {
-                archive == null || installedVersion == null -> JunkNote.APK_NOT_INSTALLED
+                archive == null -> JunkNote.APK_UNREADABLE
+                installedVersion == null -> JunkNote.APK_NOT_INSTALLED
                 installedVersion > archive.longVersionCode -> JunkNote.APK_NEWER_INSTALLED
                 else -> JunkNote.APK_INSTALLED
             }
             JunkItem(
                 path = f.path,
                 size = f.size,
-                preselected = note != JunkNote.APK_NOT_INSTALLED,
-                useTrash = note == JunkNote.APK_NOT_INSTALLED,
+                preselected = note == JunkNote.APK_INSTALLED || note == JunkNote.APK_NEWER_INSTALLED,
+                useTrash = note == JunkNote.APK_NOT_INSTALLED || note == JunkNote.APK_UNREADABLE,
                 note = note,
             )
         }

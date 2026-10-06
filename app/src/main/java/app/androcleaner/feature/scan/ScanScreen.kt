@@ -39,6 +39,7 @@ import androidx.compose.material.icons.rounded.PhotoLibrary
 import androidx.compose.material.icons.rounded.Speed
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -57,6 +58,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.state.ToggleableState
@@ -68,6 +70,8 @@ import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import app.androcleaner.R
 import app.androcleaner.core.format.formatBytes
+import app.androcleaner.feature.cache.CacheTarget
+import app.androcleaner.feature.cache.rememberCacheCleaner
 import app.androcleaner.ui.components.AppCard
 import app.androcleaner.ui.components.GradientBar
 import app.androcleaner.ui.components.GradientButton
@@ -90,14 +94,16 @@ fun ScanScreen(
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     val snackbar = LocalSnackbar.current
     val context = LocalContext.current
+    val resources = LocalResources.current
     var confirmClean by remember { mutableStateOf(false) }
+    val cleanCache = rememberCacheCleaner(onFinished = viewModel::refreshStats)
 
     LaunchedEffect(Unit) {
         viewModel.results.collect { result ->
             val freed = android.text.format.Formatter.formatShortFileSize(context, result.freedBytes)
-            var message = context.getString(R.string.freed_bytes, freed)
+            var message = resources.getString(R.string.freed_bytes, freed)
             if (result.failedPaths.isNotEmpty()) {
-                message += " · " + context.getString(R.string.failed_count, result.failedPaths.size)
+                message += " · " + resources.getString(R.string.failed_count, result.failedPaths.size)
             }
             snackbar.showSnackbar(message)
         }
@@ -129,7 +135,7 @@ fun ScanScreen(
                     }
                 }
             }
-            item { OrbSection(state.scan, onScan = viewModel::scan) }
+            item { OrbSection(state.scan, extraBytes = state.appCacheBytes ?: 0, onScan = viewModel::scan) }
 
             val done = state.scan as? ScanState.Done
             if (done != null) {
@@ -146,7 +152,7 @@ fun ScanScreen(
                 }
             }
             state.appCacheBytes?.let { cache ->
-                item { AppCacheCard(cache, onOpenAppCache) }
+                item { AppCacheCard(cache, onClean = { cleanCache(CacheTarget.AllApps) }, onOpen = onOpenAppCache) }
             }
         }
 
@@ -185,7 +191,7 @@ fun ScanScreen(
 }
 
 @Composable
-private fun OrbSection(scan: ScanState, onScan: () -> Unit) {
+private fun OrbSection(scan: ScanState, extraBytes: Long, onScan: () -> Unit) {
     Column(
         Modifier.fillMaxWidth().padding(vertical = 8.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -213,12 +219,12 @@ private fun OrbSection(scan: ScanState, onScan: () -> Unit) {
                                 style = MaterialTheme.typography.bodyMedium,
                             )
                         }
-                        is ScanState.Done -> if (s.junk.isEmpty()) {
+                        is ScanState.Done -> if (s.junkBytes + extraBytes == 0L && s.junk.isEmpty()) {
                             Icon(Icons.Rounded.CheckCircle, null, tint = Color.White, modifier = Modifier.size(48.dp))
                             Text(stringResource(R.string.scan_all_clean), color = Color.White, style = MaterialTheme.typography.headlineSmall)
                         } else {
                             Text(
-                                formatBytes(s.junkBytes),
+                                formatBytes(s.junkBytes + extraBytes),
                                 color = Color.White,
                                 style = MaterialTheme.typography.displayMedium,
                                 fontWeight = FontWeight.Bold,
@@ -258,7 +264,7 @@ private val JunkType.style: JunkStyle
         JunkType.TEMP_FILES -> JunkStyle(Icons.Rounded.Description, CategoryColors.Audio, R.string.junk_temp, R.string.junk_temp_desc)
         JunkType.APK_FILES -> JunkStyle(Icons.Rounded.Android, BrandTeal, R.string.junk_apks, R.string.junk_apks_desc)
         JunkType.LEFTOVERS -> JunkStyle(Icons.Rounded.Inventory2, BrandPink, R.string.junk_leftovers, R.string.junk_leftovers_desc)
-        JunkType.EMPTY_FOLDERS -> JunkStyle(Icons.Rounded.FolderOff, CategoryColors.Other, R.string.junk_empty, R.string.junk_empty_desc)
+        JunkType.EMPTY_FOLDERS -> JunkStyle(Icons.Rounded.FolderOff, CategoryColors.System, R.string.junk_empty, R.string.junk_empty_desc)
     }
 
 @Composable
@@ -353,6 +359,7 @@ private fun JunkItemRow(item: JunkItem, checked: Boolean, rootPath: String, onTo
                     JunkNote.APK_NEWER_INSTALLED -> R.string.note_apk_newer
                     JunkNote.APK_NOT_INSTALLED -> R.string.note_apk_not_installed
                     JunkNote.APP_UNINSTALLED -> R.string.note_app_uninstalled
+                    JunkNote.APK_UNREADABLE -> R.string.note_apk_unreadable
                 }
             }
             val sizeText = if (item.size > 0) formatBytes(item.size) else null
@@ -366,7 +373,7 @@ private fun JunkItemRow(item: JunkItem, checked: Boolean, rootPath: String, onTo
 }
 
 @Composable
-private fun AppCacheCard(cacheBytes: Long, onOpen: () -> Unit) {
+private fun AppCacheCard(cacheBytes: Long, onClean: () -> Unit, onOpen: () -> Unit) {
     AppCard(Modifier.clickable(onClick = onOpen)) {
         Row(Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
             IconBadge(Icons.Rounded.Speed, BrandTeal)
@@ -374,12 +381,12 @@ private fun AppCacheCard(cacheBytes: Long, onOpen: () -> Unit) {
             Column(Modifier.weight(1f)) {
                 Text(stringResource(R.string.app_cache_title) + " · " + formatBytes(cacheBytes), style = MaterialTheme.typography.titleMedium)
                 Text(
-                    stringResource(R.string.app_cache_desc),
+                    stringResource(R.string.app_cache_auto_desc),
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                 )
             }
-            TextButton(onClick = onOpen) { Text(stringResource(R.string.app_cache_open)) }
+            FilledTonalButton(onClick = onClean) { Text(stringResource(R.string.cache_clean_button)) }
         }
     }
 }
