@@ -18,17 +18,15 @@ android {
         versionName = "0.1.0"
     }
 
-    signingConfigs {
-        // Release signing comes from env vars (CI) — never commit the keystore.
-        val keystore = System.getenv("ANDROCLEANER_KEYSTORE")
-        if (keystore != null) {
-            create("release") {
-                storeFile = file(keystore)
-                storePassword = System.getenv("ANDROCLEANER_KEYSTORE_PASSWORD")
-                keyAlias = System.getenv("ANDROCLEANER_KEY_ALIAS")
-                keyPassword = System.getenv("ANDROCLEANER_KEY_PASSWORD")
-            }
-        }
+    // Release signing comes from env vars (CI or scripts/release-local.sh) — never commit the keystore.
+    // Configured without a nested lambda: Gradle 9.8's script compiler drops the lambda class inside `if`.
+    val releaseKeystore: String? = System.getenv("ANDROCLEANER_KEYSTORE")
+    if (releaseKeystore != null) {
+        val release = signingConfigs.create("release")
+        release.storeFile = file(releaseKeystore)
+        release.storePassword = System.getenv("ANDROCLEANER_KEYSTORE_PASSWORD")
+        release.keyAlias = System.getenv("ANDROCLEANER_KEY_ALIAS")
+        release.keyPassword = System.getenv("ANDROCLEANER_KEY_PASSWORD")
     }
 
     buildTypes {

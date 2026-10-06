@@ -20,7 +20,7 @@ export ANDROCLEANER_KEY_ALIAS="${KEY_ALIAS:-androcleaner}"
 export ANDROCLEANER_KEY_PASSWORD="$PASSWORD"
 
 cd "$(dirname "$0")/.."
-./gradlew testReleaseUnitTest assembleRelease
+./gradlew testDebugUnitTest assembleRelease
 
 APK="build/Androcleaner-$TAG.apk"
 cp app/build/outputs/apk/release/app-release.apk "$APK"
