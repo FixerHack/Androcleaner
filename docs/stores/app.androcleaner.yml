@@ -1,0 +1,31 @@
+# Metadata for the F-Droid inclusion merge request.
+# Copy to fdroiddata/metadata/app.androcleaner.yml in your fork of https://gitlab.com/fdroid/fdroiddata
+Categories:
+  - System
+License: GPL-3.0-only
+AuthorName: FixerHack
+SourceCode: https://github.com/FixerHack/Androcleaner
+IssueTracker: https://github.com/FixerHack/Androcleaner/issues
+Changelog: https://github.com/FixerHack/Androcleaner/releases
+
+AutoName: Androcleaner
+
+RepoType: git
+Repo: https://github.com/FixerHack/Androcleaner.git
+# Reproducible build: F-Droid builds from source, compares with this APK and ships it with our signature.
+Binaries: https://github.com/FixerHack/Androcleaner/releases/download/v%v/Androcleaner-Full-v%v.apk
+
+Builds:
+  - versionName: 0.2.1
+    versionCode: 3
+    commit: v0.2.1
+    subdir: app
+    gradle:
+      - full
+
+AllowedAPKSigningKeys: c3d15f4402dc1787b1eaaebb93259b7c77c5dc4fd2378828a9616cc3e8fc471a
+
+AutoUpdateMode: Version
+UpdateCheckMode: Tags ^v[0-9.]+$
+CurrentVersion: 0.2.1
+CurrentVersionCode: 3

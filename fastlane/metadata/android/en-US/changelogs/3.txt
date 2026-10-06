@@ -1,0 +1,2 @@
+- Automatic app cache cleaning (Full) or system quick clean
+- Fixes: dark mode onboarding, storage colors, APK detection, app list

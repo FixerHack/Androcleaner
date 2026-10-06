@@ -56,7 +56,6 @@ android {
         // Adds the accessibility service for one-tap per-app cache cleaning (install via ADB / app store).
         create("full") {
             dimension = "distribution"
-            versionNameSuffix = "-full"
             buildConfigField("boolean", "AUTO_CACHE_CLEAN", "true")
         }
     }
@@ -64,6 +63,12 @@ android {
     buildFeatures {
         compose = true
         buildConfig = true
+    }
+
+    // No Google-encrypted dependency blob in the APK: F-Droid and IzzyOnDroid reject it.
+    dependenciesInfo {
+        includeInApk = false
+        includeInBundle = false
     }
 }
 

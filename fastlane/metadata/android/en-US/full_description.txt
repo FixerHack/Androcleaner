@@ -1,0 +1,19 @@
+<p>Androcleaner is a clean, honest storage cleaner for Android — like CleanMyMac, but for your phone. It works fully offline, has no ads, no trackers and no accounts.</p>
+
+<p><b>Features</b></p>
+<ul>
+<li><b>Smart Scan</b> — gallery thumbnails, temp files and logs, old APK installers (marked when already installed), leftovers of removed apps and empty folders.</li>
+<li><b>App cache</b> — clears the cache of every app automatically: Androcleaner presses "Clear cache" in Settings for you (requires enabling its accessibility service).</li>
+<li><b>Storage</b> — a chart of what takes up space and a list of the largest files.</li>
+<li><b>Apps</b> — size, cache, apps you haven't opened in a while, quick uninstall.</li>
+<li><b>Trash</b> — your files go to the Androcleaner trash first and are kept for 30 days.</li>
+</ul>
+
+<p><b>Principles</b></p>
+<ul>
+<li>Nothing is deleted without your confirmation.</li>
+<li>No "RAM boosters" or fake virus alerts.</li>
+<li>No notifications you didn't turn on.</li>
+</ul>
+
+<p><b>Accessibility service</b>: used only when you tap "Clear cache", to open each app's info page in Settings and press Storage → Clear cache. It doesn't read your screen, messages or other apps.</p>
