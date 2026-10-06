@@ -142,6 +142,9 @@
     <string name="apps_empty">Тут порожньо</string>
     <string name="apps_empty_desc">Увімкніть фільтр «Системні», щоб побачити передвстановлені апки.</string>
 
+    <string name="cache_quick_title">Очищення кешу апок</string>
+    <string name="cache_quick_text">Android покаже вікно для очищення кешу, який апки тримають у спільному сховищі — зазвичай це найбільша частина. Для повністю автоматичного очищення кожної апки встановіть Androcleaner Full (див. сторінку проєкту).</string>
+
     <!-- Plurals -->
     <plurals name="files_count">
         <item quantity="one">%1$d файл</item>

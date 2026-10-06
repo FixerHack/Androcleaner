@@ -46,8 +46,24 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
+    flavorDimensions += "distribution"
+    productFlavors {
+        // Installs from a browser; cache is cleared via the system "clear all caches" dialog.
+        create("standard") {
+            dimension = "distribution"
+            buildConfigField("boolean", "AUTO_CACHE_CLEAN", "false")
+        }
+        // Adds the accessibility service for one-tap per-app cache cleaning (install via ADB / app store).
+        create("full") {
+            dimension = "distribution"
+            versionNameSuffix = "-full"
+            buildConfigField("boolean", "AUTO_CACHE_CLEAN", "true")
+        }
+    }
+
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 

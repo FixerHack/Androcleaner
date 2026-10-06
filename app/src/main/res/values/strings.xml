@@ -143,6 +143,9 @@
     <string name="apps_empty">No apps here</string>
     <string name="apps_empty_desc">Turn on the \"System\" filter to see preinstalled apps.</string>
 
+    <string name="cache_quick_title">Clear app cache</string>
+    <string name="cache_quick_text">Android will show a dialog to clear the cache that apps keep in shared storage — usually the biggest part. For fully automatic per-app cleaning, install Androcleaner Full (see the project page).</string>
+
     <!-- Plurals -->
     <plurals name="files_count">
         <item quantity="one">%1$d file</item>

@@ -20,14 +20,16 @@ export ANDROCLEANER_KEY_ALIAS="${KEY_ALIAS:-androcleaner}"
 export ANDROCLEANER_KEY_PASSWORD="$PASSWORD"
 
 cd "$(dirname "$0")/.."
-./gradlew testDebugUnitTest assembleRelease
+./gradlew testStandardDebugUnitTest assembleStandardRelease assembleFullRelease
 
-APK="build/Androcleaner-$TAG.apk"
-cp app/build/outputs/apk/release/app-release.apk "$APK"
-echo "Built $APK"
+mkdir -p build
+APKS=("build/Androcleaner-$TAG.apk" "build/Androcleaner-Full-$TAG.apk")
+cp app/build/outputs/apk/standard/release/app-standard-release.apk "${APKS[0]}"
+cp app/build/outputs/apk/full/release/app-full-release.apk "${APKS[1]}"
+echo "Built ${APKS[*]}"
 
 if gh release view "$TAG" >/dev/null 2>&1; then
-    gh release upload "$TAG" "$APK" --clobber
+    gh release upload "$TAG" "${APKS[@]}" --clobber
 else
-    gh release create "$TAG" "$APK" --title "Androcleaner $TAG" --generate-notes
+    gh release create "$TAG" "${APKS[@]}" --title "Androcleaner $TAG" --notes-file scripts/release-notes.md --generate-notes
 fi

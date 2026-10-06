@@ -35,14 +35,19 @@
 
 ## Встановлення
 
-Завантажте APK з [Releases](../../releases). Потрібен Android 11+.
+Завантажте APK з [Releases](../../releases). Потрібен Android 11+. Є дві версії:
+
+- **Androcleaner** — ставиться з браузера. Кеш апок чиститься через системне вікно Android.
+- **Androcleaner Full** — сам натискає «Очистити кеш» для кожної апки через Спеціальні можливості. Play Захист блокує такі апки при встановленні з браузера, тому ставте її через `adb install` або [Obtainium](https://github.com/ImranR98/Obtainium).
+
+Обидві мають однаковий підпис і ставляться одна поверх одної.
 
 ## Збірка
 
 Потрібні JDK 21 та Android SDK (compileSdk 37).
 
 ```bash
-./gradlew assembleDebug
+./gradlew assembleStandardDebug assembleFullDebug
 ```
 
 ## Дозволи

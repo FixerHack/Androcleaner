@@ -1,6 +1,7 @@
 package app.androcleaner.feature.cache
 
 import android.content.Context
+import app.androcleaner.BuildConfig
 import android.accessibilityservice.AccessibilityServiceInfo
 import android.view.accessibility.AccessibilityManager
 import app.androcleaner.feature.apps.AppInfo
@@ -21,6 +22,15 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Singleton
 
+/** Drives the Settings app; implemented by the accessibility service in the "full" flavor. */
+interface SettingsAutomation {
+    suspend fun clearCacheOf(packageName: String, labels: SettingsLabels): Boolean
+    fun showOverlay(onStop: () -> Unit)
+    fun updateOverlay(appLabel: String, index: Int, total: Int)
+    fun hideOverlay()
+    fun returnToApp()
+}
+
 sealed interface CacheCleanState {
     data object Idle : CacheCleanState
     data class Running(val appLabel: String, val index: Int, val total: Int) : CacheCleanState
@@ -28,7 +38,7 @@ sealed interface CacheCleanState {
 }
 
 /**
- * Clears app caches by driving the system Settings screens through [CacheCleanerService]:
+ * Clears app caches by driving the system Settings screens through [SettingsAutomation]:
  * App info → Storage & cache → Clear cache, for each app in turn.
  */
 @Singleton
@@ -44,10 +54,13 @@ class AppCacheCleaner @Inject constructor(
     val state: StateFlow<CacheCleanState> = _state.asStateFlow()
 
     /** Set by the service while it is connected. */
-    internal var service: CacheCleanerService? = null
+    var service: SettingsAutomation? = null
+
+    /** False in the "standard" flavor, which has no accessibility service. */
+    val isAutoCleanAvailable: Boolean = BuildConfig.AUTO_CACHE_CLEAN
 
     val isServiceEnabled: Boolean
-        get() = service != null || isEnabledInSettings()
+        get() = isAutoCleanAvailable && (service != null || isEnabledInSettings())
 
     fun start(targets: List<AppInfo>) {
         val svc = service

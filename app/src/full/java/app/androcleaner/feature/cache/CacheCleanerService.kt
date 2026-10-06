@@ -20,7 +20,7 @@ import javax.inject.Inject
  * It never reads content from other apps; it looks only at the Settings app's own screens.
  */
 @AndroidEntryPoint
-class CacheCleanerService : AccessibilityService() {
+class CacheCleanerService : AccessibilityService(), SettingsAutomation {
 
     @Inject lateinit var cleaner: AppCacheCleaner
 
@@ -50,7 +50,7 @@ class CacheCleanerService : AccessibilityService() {
      * Opens the app's info page and presses Storage → Clear cache. Returns false if a step wasn't found.
      * Must be called off the main thread: walking the node tree makes blocking IPC calls.
      */
-    suspend fun clearCacheOf(packageName: String, labels: SettingsLabels): Boolean {
+    override suspend fun clearCacheOf(packageName: String, labels: SettingsLabels): Boolean {
         startActivity(
             Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.parse("package:$packageName")).addFlags(
                 Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK or
@@ -78,22 +78,22 @@ class CacheCleanerService : AccessibilityService() {
         return true
     }
 
-    fun returnToApp() {
+    override fun returnToApp() {
         startActivity(
             Intent(this, MainActivity::class.java)
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_REORDER_TO_FRONT),
         )
     }
 
-    fun showOverlay(onStop: () -> Unit) {
+    override fun showOverlay(onStop: () -> Unit) {
         if (overlay == null) overlay = CleanOverlay(localizedContext(), this, onStop).also { it.show() }
     }
 
-    fun updateOverlay(appLabel: String, index: Int, total: Int) {
+    override fun updateOverlay(appLabel: String, index: Int, total: Int) {
         overlay?.update(appLabel, index, total)
     }
 
-    fun hideOverlay() {
+    override fun hideOverlay() {
         overlay?.hide()
         overlay = null
     }

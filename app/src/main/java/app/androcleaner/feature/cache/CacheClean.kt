@@ -53,6 +53,7 @@ class CacheCleanViewModel @Inject constructor(
     val state = cleaner.state
 
     val isServiceEnabled: Boolean get() = cleaner.isServiceEnabled
+    val isAutoCleanAvailable: Boolean get() = cleaner.isAutoCleanAvailable
 
     fun clean(target: CacheTarget) {
         viewModelScope.launch {
@@ -104,6 +105,23 @@ fun rememberCacheCleaner(onFinished: () -> Unit): (CacheTarget) -> Unit {
     }
 
     pending?.let { target ->
+        val launchQuickClean = {
+            pending = null
+            // System dialog that clears the external cache of all apps at once.
+            runCatching { quickClean.launch(Intent(StorageManager.ACTION_CLEAR_APP_CACHE)) }
+            Unit
+        }
+        if (!viewModel.isAutoCleanAvailable) {
+            AlertDialog(
+                onDismissRequest = { pending = null },
+                icon = { Icon(Icons.Rounded.CleaningServices, null) },
+                title = { Text(stringResource(R.string.cache_quick_title)) },
+                text = { Text(stringResource(R.string.cache_quick_text)) },
+                confirmButton = { TextButton(onClick = launchQuickClean) { Text(stringResource(R.string.cache_clean_button)) } },
+                dismissButton = { TextButton(onClick = { pending = null }) { Text(stringResource(R.string.cancel)) } },
+            )
+            return@let
+        }
         AlertDialog(
             onDismissRequest = { pending = null },
             icon = { Icon(Icons.Rounded.CleaningServices, null) },
@@ -127,11 +145,7 @@ fun rememberCacheCleaner(onFinished: () -> Unit): (CacheTarget) -> Unit {
             },
             dismissButton = {
                 if (target !is CacheTarget.Apps || target.apps.size > 1) {
-                    TextButton(onClick = {
-                        pending = null
-                        // System dialog that clears the external cache of all apps at once.
-                        runCatching { quickClean.launch(Intent(StorageManager.ACTION_CLEAR_APP_CACHE)) }
-                    }) { Text(stringResource(R.string.cache_setup_quick)) }
+                    TextButton(onClick = launchQuickClean) { Text(stringResource(R.string.cache_setup_quick)) }
                 } else {
                     TextButton(onClick = { pending = null }) { Text(stringResource(R.string.cancel)) }
                 }
@@ -143,7 +157,7 @@ fun rememberCacheCleaner(onFinished: () -> Unit): (CacheTarget) -> Unit {
 }
 
 private fun openAccessibilitySettings(context: android.content.Context) {
-    val component = ComponentName(context, CacheCleanerService::class.java).flattenToString()
+    val component = ComponentName(context.packageName, "app.androcleaner.feature.cache.CacheCleanerService").flattenToString()
     val details = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
         Intent("android.settings.ACCESSIBILITY_DETAILS_SETTINGS").putExtra(Intent.EXTRA_COMPONENT_NAME, component)
     } else {

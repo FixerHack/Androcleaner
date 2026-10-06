@@ -25,10 +25,13 @@ jobs:
           ANDROCLEANER_KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           ANDROCLEANER_KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           ANDROCLEANER_KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
-        run: ./gradlew testDebugUnitTest assembleRelease
-      - name: Rename APK
-        run: cp app/build/outputs/apk/release/app-release.apk "Androcleaner-${GITHUB_REF_NAME}.apk"
+        run: ./gradlew testStandardDebugUnitTest assembleStandardRelease assembleFullRelease
+      - name: Rename APKs
+        run: |
+          cp app/build/outputs/apk/standard/release/app-standard-release.apk "Androcleaner-${GITHUB_REF_NAME}.apk"
+          cp app/build/outputs/apk/full/release/app-full-release.apk "Androcleaner-Full-${GITHUB_REF_NAME}.apk"
       - uses: softprops/action-gh-release@v2
         with:
           files: Androcleaner-*.apk
+          body_path: scripts/release-notes.md
           generate_release_notes: true
