@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">Androcleaner</string>
+
+    <!-- Navigation -->
+    <string name="tab_scan">Scan</string>
+    <string name="tab_storage">Storage</string>
+    <string name="tab_photos">Photos</string>
+    <string name="tab_apps">Apps</string>
+    <string name="tab_protection">Protection</string>
+    <string name="back">Back</string>
+
+    <!-- Common -->
+    <string name="cancel">Cancel</string>
+    <string name="grant">Grant</string>
+    <string name="granted">Granted</string>
+    <string name="scan_now">Scan</string>
+    <string name="select_all">Select all</string>
+    <string name="freed_bytes">Freed %1$s</string>
+    <string name="failed_count">Failed: %1$d</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_title">A clean phone.\nNo ads, no drama.</string>
+    <string name="onboarding_subtitle">Androcleaner works entirely on your device. No ads, trackers or accounts. Here is what it needs and why.</string>
+    <string name="perm_files_title">All files access</string>
+    <string name="perm_files_desc">To find junk, duplicates and large files. Scanning is impossible without it.</string>
+    <string name="perm_usage_title">Usage access</string>
+    <string name="perm_usage_desc">To show app cache sizes and which apps you haven\'t opened in a while. Optional.</string>
+    <string name="onboarding_continue">Get started</string>
+    <string name="onboarding_privacy">Open source on GitHub. Your files never leave the device.</string>
+
+    <!-- Scan -->
+    <string name="storage_used_of">%1$s of %2$s used</string>
+    <string name="scan_scanning">Scanning…</string>
+    <string name="scan_can_free">can be freed</string>
+    <string name="scan_all_clean">All clean</string>
+    <string name="scan_rescan">Scan again</string>
+    <string name="scan_hint">Finds gallery thumbnails, temp files, old APKs, leftovers of removed apps and empty folders.</string>
+    <string name="clean_selected">Clean %1$s</string>
+    <string name="clean_confirm_title">Clean %1$s?</string>
+    <string name="clean_confirm_text">Cache and temp files are deleted right away. Everything else goes to the Androcleaner trash for 30 days.</string>
+    <string name="clean_confirm_action">Clean</string>
+    <string name="trash">Trash</string>
+    <string name="app_cache_title">App cache</string>
+    <string name="app_cache_desc">Android doesn\'t let apps clear other apps\' cache directly. Open the list and clear the biggest ones.</string>
+    <string name="app_cache_open">View</string>
+
+    <string name="junk_thumbnails">Gallery thumbnails</string>
+    <string name="junk_thumbnails_desc">The system recreates them when needed</string>
+    <string name="junk_temp">Temp files and logs</string>
+    <string name="junk_temp_desc">.tmp, .log, dumps, desktop OS litter</string>
+    <string name="junk_apks">APK installers</string>
+    <string name="junk_apks_desc">Already installed apps are preselected</string>
+    <string name="junk_leftovers">Leftovers of removed apps</string>
+    <string name="junk_leftovers_desc">Check the contents: your files may be here</string>
+    <string name="junk_empty">Empty folders</string>
+    <string name="junk_empty_desc">Folders without a single file</string>
+    <string name="note_apk_installed">Installed</string>
+    <string name="note_apk_newer">Newer version installed</string>
+    <string name="note_apk_not_installed">Not installed</string>
+    <string name="note_app_uninstalled">App removed</string>
+    <string name="more_items">and %1$d more</string>
+
+    <!-- Storage -->
+    <string name="storage_title">Storage</string>
+    <string name="storage_need_scan">Scan your storage to see what takes up space.</string>
+    <string name="storage_free">free</string>
+    <string name="storage_system_apps">System and apps</string>
+    <string name="cat_images">Photos</string>
+    <string name="cat_videos">Videos</string>
+    <string name="cat_audio">Audio</string>
+    <string name="cat_documents">Documents</string>
+    <string name="cat_apks">APK</string>
+    <string name="cat_archives">Archives</string>
+    <string name="cat_other">Other</string>
+    <string name="cat_all">All</string>
+    <string name="largest_files">Largest files</string>
+    <string name="move_to_trash">Move to trash (%1$s)</string>
+    <string name="move_to_trash_confirm">Move %1$d files to trash? You can restore them within 30 days.</string>
+    <string name="move_to_trash_action">Move</string>
+
+    <!-- Apps -->
+    <string name="apps_title">Apps</string>
+    <string name="apps_usage_banner">Grant usage access to see app sizes and when you last opened them.</string>
+    <string name="apps_sort_size">By size</string>
+    <string name="apps_sort_cache">By cache</string>
+    <string name="apps_sort_unused">Unused</string>
+    <string name="apps_show_system">System</string>
+    <string name="apps_never_used">Not opened for over a year</string>
+    <string name="apps_last_used">Last opened %1$s</string>
+    <string name="apps_cache_size">Cache %1$s</string>
+    <string name="apps_size_app">App</string>
+    <string name="apps_size_data">Data</string>
+    <string name="apps_size_cache">Cache</string>
+    <string name="apps_installed">Installed %1$s</string>
+    <string name="apps_clear_cache">Clear cache</string>
+    <string name="apps_clear_cache_hint">App settings will open: tap Storage → Clear cache.</string>
+    <string name="apps_uninstall">Uninstall</string>
+    <string name="apps_open">Open</string>
+    <string name="apps_empty_unused">No apps left unopened for more than 30 days</string>
+
+    <!-- Trash -->
+    <string name="trash_title">Trash</string>
+    <string name="trash_empty">Trash is empty</string>
+    <string name="trash_empty_desc">Files you delete in Androcleaner are kept here for 30 days.</string>
+    <string name="trash_restore">Restore</string>
+    <string name="trash_delete_forever">Delete forever</string>
+    <string name="trash_delete_confirm">Permanently delete %1$d files? This can\'t be undone.</string>
+    <string name="trash_restored">Restored</string>
+
+    <!-- Coming soon -->
+    <string name="soon_badge">Coming soon</string>
+    <string name="photos_title">Photos</string>
+    <string name="photos_desc">Smart gallery cleanup, fully offline</string>
+    <string name="photos_f1">Similar photos and bursts — keep the best one</string>
+    <string name="photos_f2">Blurry photos</string>
+    <string name="photos_f3">Old screenshots</string>
+    <string name="photos_f4">Exact duplicates of any file</string>
+    <string name="photos_f5">Swipe mode: keep / delete</string>
+    <string name="protection_title">Protection</string>
+    <string name="protection_desc">An honest virus scanner, no scare tactics</string>
+    <string name="protection_f1">Check apps and APKs with VirusTotal (your own key)</string>
+    <string name="protection_f2">Second opinion from MalwareBazaar</string>
+    <string name="protection_f3">Apps with dangerous permissions</string>
+    <string name="protection_f4">Who can access camera, microphone, SMS</string>
+
+    <!-- Plurals -->
+    <plurals name="files_count">
+        <item quantity="one">%1$d file</item>
+        <item quantity="other">%1$d files</item>
+    </plurals>
+    <plurals name="folders_count">
+        <item quantity="one">%1$d folder</item>
+        <item quantity="other">%1$d folders</item>
+    </plurals>
+    <plurals name="trash_days_left">
+        <item quantity="one">%1$d day left</item>
+        <item quantity="other">%1$d days left</item>
+    </plurals>
+</resources>

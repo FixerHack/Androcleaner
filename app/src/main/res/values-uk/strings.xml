@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Navigation -->
+    <string name="tab_scan">Скан</string>
+    <string name="tab_storage">Сховище</string>
+    <string name="tab_photos">Фото</string>
+    <string name="tab_apps">Апки</string>
+    <string name="tab_protection">Захист</string>
+    <string name="back">Назад</string>
+
+    <!-- Common -->
+    <string name="cancel">Скасувати</string>
+    <string name="grant">Надати</string>
+    <string name="granted">Надано</string>
+    <string name="scan_now">Сканувати</string>
+    <string name="select_all">Вибрати все</string>
+    <string name="freed_bytes">Звільнено %1$s</string>
+    <string name="failed_count">Не вдалося обробити: %1$d</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_title">Чистий телефон.\nБез реклами і драми.</string>
+    <string name="onboarding_subtitle">Androcleaner працює повністю на пристрої. Без реклами, трекерів і акаунтів. Ось які дозволи потрібні і навіщо.</string>
+    <string name="perm_files_title">Доступ до всіх файлів</string>
+    <string name="perm_files_desc">Щоб знайти сміття, дублікати та великі файли. Без цього сканування неможливе.</string>
+    <string name="perm_usage_title">Доступ до статистики використання</string>
+    <string name="perm_usage_desc">Щоб показати розмір кешу апок і які з них ви давно не відкривали. Необовʼязково.</string>
+    <string name="onboarding_continue">Почати</string>
+    <string name="onboarding_privacy">Код відкритий на GitHub. Файли нікуди не надсилаються.</string>
+
+    <!-- Scan -->
+    <string name="storage_used_of">Зайнято %1$s з %2$s</string>
+    <string name="scan_scanning">Сканую…</string>
+    <string name="scan_can_free">можна звільнити</string>
+    <string name="scan_all_clean">Все чисто</string>
+    <string name="scan_rescan">Сканувати знову</string>
+    <string name="scan_hint">Знайдемо мініатюри, тимчасові файли, старі APK, залишки видалених апок і порожні теки.</string>
+    <string name="clean_selected">Очистити %1$s</string>
+    <string name="clean_confirm_title">Очистити %1$s?</string>
+    <string name="clean_confirm_text">Кеш і тимчасові файли буде видалено одразу. Решта переміститься в кошик Androcleaner на 30 днів.</string>
+    <string name="clean_confirm_action">Очистити</string>
+    <string name="trash">Кошик</string>
+    <string name="app_cache_title">Кеш апок</string>
+    <string name="app_cache_desc">Android не дозволяє чистити кеш інших апок напряму. Відкрийте список і почистіть найбільші.</string>
+    <string name="app_cache_open">Переглянути</string>
+
+    <string name="junk_thumbnails">Мініатюри галереї</string>
+    <string name="junk_thumbnails_desc">Система створить їх знову за потреби</string>
+    <string name="junk_temp">Тимчасові файли та логи</string>
+    <string name="junk_temp_desc">.tmp, .log, дампи, сміття з компʼютера</string>
+    <string name="junk_apks">Інсталятори APK</string>
+    <string name="junk_apks_desc">Вже встановлені апки вибрано автоматично</string>
+    <string name="junk_leftovers">Залишки видалених апок</string>
+    <string name="junk_leftovers_desc">Перевірте вміст: тут можуть бути ваші файли</string>
+    <string name="junk_empty">Порожні теки</string>
+    <string name="junk_empty_desc">Теки без жодного файлу</string>
+    <string name="note_apk_installed">Встановлено</string>
+    <string name="note_apk_newer">Встановлено новішу версію</string>
+    <string name="note_apk_not_installed">Не встановлено</string>
+    <string name="note_app_uninstalled">Апку видалено</string>
+    <string name="more_items">і ще %1$d</string>
+
+    <!-- Storage -->
+    <string name="storage_title">Сховище</string>
+    <string name="storage_need_scan">Проскануйте сховище, щоб побачити, що займає місце.</string>
+    <string name="storage_free">вільно</string>
+    <string name="storage_system_apps">Система та апки</string>
+    <string name="cat_images">Фото</string>
+    <string name="cat_videos">Відео</string>
+    <string name="cat_audio">Аудіо</string>
+    <string name="cat_documents">Документи</string>
+    <string name="cat_apks">APK</string>
+    <string name="cat_archives">Архіви</string>
+    <string name="cat_other">Інше</string>
+    <string name="cat_all">Усе</string>
+    <string name="largest_files">Найбільші файли</string>
+    <string name="move_to_trash">У кошик (%1$s)</string>
+    <string name="move_to_trash_confirm">Перемістити %1$d файлів у кошик? Їх можна буде відновити протягом 30 днів.</string>
+    <string name="move_to_trash_action">Перемістити</string>
+
+    <!-- Apps -->
+    <string name="apps_title">Апки</string>
+    <string name="apps_usage_banner">Надайте доступ до статистики, щоб бачити розміри апок і коли ви їх відкривали.</string>
+    <string name="apps_sort_size">За розміром</string>
+    <string name="apps_sort_cache">За кешем</string>
+    <string name="apps_sort_unused">Давно не відкривались</string>
+    <string name="apps_show_system">Системні</string>
+    <string name="apps_never_used">Не відкривалась понад рік</string>
+    <string name="apps_last_used">Відкривалась %1$s</string>
+    <string name="apps_cache_size">Кеш %1$s</string>
+    <string name="apps_size_app">Апка</string>
+    <string name="apps_size_data">Дані</string>
+    <string name="apps_size_cache">Кеш</string>
+    <string name="apps_installed">Встановлено %1$s</string>
+    <string name="apps_clear_cache">Очистити кеш</string>
+    <string name="apps_clear_cache_hint">Відкриються налаштування апки: натисніть «Сховище» → «Очистити кеш».</string>
+    <string name="apps_uninstall">Видалити</string>
+    <string name="apps_open">Відкрити</string>
+    <string name="apps_empty_unused">Немає апок, які ви не відкривали понад 30 днів</string>
+
+    <!-- Trash -->
+    <string name="trash_title">Кошик</string>
+    <string name="trash_empty">Кошик порожній</string>
+    <string name="trash_empty_desc">Файли, які ви видаляєте з Androcleaner, зберігаються тут 30 днів.</string>
+    <string name="trash_restore">Відновити</string>
+    <string name="trash_delete_forever">Видалити назавжди</string>
+    <string name="trash_delete_confirm">Видалити %1$d файлів назавжди? Це не можна скасувати.</string>
+    <string name="trash_restored">Відновлено</string>
+
+    <!-- Coming soon -->
+    <string name="soon_badge">Незабаром</string>
+    <string name="photos_title">Фото</string>
+    <string name="photos_desc">Розумний розбір галереї офлайн</string>
+    <string name="photos_f1">Схожі фото та серії — залишимо найкраще</string>
+    <string name="photos_f2">Розмиті фото</string>
+    <string name="photos_f3">Старі скріншоти</string>
+    <string name="photos_f4">Точні дублікати будь-яких файлів</string>
+    <string name="photos_f5">Свайп-режим «залишити / видалити»</string>
+    <string name="protection_title">Захист</string>
+    <string name="protection_desc">Чесний вірус-сканер без залякувань</string>
+    <string name="protection_f1">Перевірка апок і APK через VirusTotal (ваш ключ)</string>
+    <string name="protection_f2">Друга думка від MalwareBazaar</string>
+    <string name="protection_f3">Апки з небезпечними дозволами</string>
+    <string name="protection_f4">Хто має доступ до камери, мікрофона, SMS</string>
+
+    <!-- Plurals -->
+    <plurals name="files_count">
+        <item quantity="one">%1$d файл</item>
+        <item quantity="few">%1$d файли</item>
+        <item quantity="many">%1$d файлів</item>
+        <item quantity="other">%1$d файлу</item>
+    </plurals>
+    <plurals name="folders_count">
+        <item quantity="one">%1$d тека</item>
+        <item quantity="few">%1$d теки</item>
+        <item quantity="many">%1$d тек</item>
+        <item quantity="other">%1$d теки</item>
+    </plurals>
+    <plurals name="trash_days_left">
+        <item quantity="one">ще %1$d день</item>
+        <item quantity="few">ще %1$d дні</item>
+        <item quantity="many">ще %1$d днів</item>
+        <item quantity="other">ще %1$d дня</item>
+    </plurals>
+</resources>
