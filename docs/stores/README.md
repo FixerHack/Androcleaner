@@ -1,31 +1,28 @@
-# Публікація в F-Droid та IzzyOnDroid
+# Публікація в F-Droid
 
-Опис, іконка і скріншоти лежать у `fastlane/metadata/android/` — обидва репозиторії беруть їх звідти.
-У магазини йде збірка **Full**: встановлення з магазину Play Захист не блокує.
+Опис, іконка і скріншоти лежать у `fastlane/metadata/android/` — F-Droid бере їх звідти.
+У F-Droid йде збірка **Full**.
 
-## IzzyOnDroid (швидко, зазвичай кілька днів)
+## F-Droid
 
-1. Увійдіть на https://gitlab.com і відкрийте https://gitlab.com/IzzyOnDroid/repo/-/issues/new
-2. Шаблон: **Request for Inclusion**. Текст:
+Офіційна інструкція: https://f-droid.org/docs/Inclusion_How-To/
 
-```
-App: Androcleaner
-Source: https://github.com/FixerHack/Androcleaner
-License: GPL-3.0-only
-APK: GitHub Releases, asset Androcleaner-Full-v*.apk (please use the Full variant)
-Description: honest storage/cache cleaner, no ads, no trackers, fully offline.
-Accessibility service is used only to press "Clear cache" in Settings when the user starts a cache clean.
-Signing cert SHA-256: c3d15f4402dc1787b1eaaebb93259b7c77c5dc4fd2378828a9616cc3e8fc471a
-```
+1. Зареєструйтесь на https://gitlab.com і зробіть fork https://gitlab.com/fdroid/fdroiddata
+2. Створіть гілку `app.androcleaner` і додайте файл `docs/stores/app.androcleaner.yml` як `metadata/app.androcleaner.yml`.
+3. (Бажано) перевірте локально: `fdroid lint app.androcleaner`, `fdroid rewritemeta app.androcleaner`, `fdroid build app.androcleaner`.
+4. Відкрийте merge request у `fdroid/fdroiddata` з назвою `New app: Androcleaner`.
+   В описі чесно вкажіть, що код написано з допомогою ШІ і перевірено вами: F-Droid має
+   тимчасову політику щодо генеративного ШІ (https://gitlab.com/fdroid/admin/-/work_items/699) —
+   він не заборонений, але очікується людська перевірка.
 
-Після включення нові версії підтягуються автоматично протягом доби після релізу на GitHub.
-
-## F-Droid (довго: місяць і більше на включення, 1–2 тижні на кожне оновлення)
-
-1. Зробіть fork https://gitlab.com/fdroid/fdroiddata
-2. Додайте файл `docs/stores/app.androcleaner.yml` як `metadata/app.androcleaner.yml`.
-3. Створіть merge request з назвою `New app: Androcleaner`.
+Рецензенти — волонтери, тож включення зазвичай займає від кількох тижнів до місяців.
+Після merge апка з'являється в репозиторії за 24–48 годин.
 
 Якщо F-Droid не зможе відтворити збірку байт-у-байт, вони попросять прибрати рядки
 `Binaries` та `AllowedAPKSigningKeys` — тоді F-Droid підпише APK своїм ключем
 (і оновлюватися між GitHub-версією та F-Droid-версією без перевстановлення не вийде).
+
+## IzzyOnDroid — не підходить
+
+Політика IzzyOnDroid відхиляє апки, код яких повністю або частково створено генеративним ШІ:
+https://izzyondroid.org/docs/general/AppInclusionPolicy/
