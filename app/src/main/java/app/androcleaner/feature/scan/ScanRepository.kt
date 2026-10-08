@@ -13,6 +13,8 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.filterIsInstance
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -59,6 +61,13 @@ class ScanRepository @Inject constructor(
     /** Re-scans in the background when files changed outside a scan (e.g. restored from trash). */
     fun refreshIfScanned() {
         if (state.value is ScanState.Done) startScan()
+    }
+
+    /** Returns the current index, scanning first if there is none yet. */
+    suspend fun awaitIndex(): FileIndex {
+        (state.value as? ScanState.Done)?.let { return it.index }
+        startScan()
+        return state.filterIsInstance<ScanState.Done>().first().index
     }
 
     /** Deletes junk items: cache-like files permanently, everything else to trash. */

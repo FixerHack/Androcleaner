@@ -106,20 +106,10 @@
     <string name="trash_restored">Restored</string>
 
     <!-- Coming soon -->
-    <string name="soon_badge">Coming soon</string>
     <string name="photos_title">Photos</string>
     <string name="photos_desc">Smart gallery cleanup, fully offline</string>
-    <string name="photos_f1">Similar photos and bursts — keep the best one</string>
-    <string name="photos_f2">Blurry photos</string>
-    <string name="photos_f3">Old screenshots</string>
-    <string name="photos_f4">Exact duplicates of any file</string>
-    <string name="photos_f5">Swipe mode: keep / delete</string>
     <string name="protection_title">Protection</string>
     <string name="protection_desc">An honest virus scanner, no scare tactics</string>
-    <string name="protection_f1">Check apps and APKs with VirusTotal (your own key)</string>
-    <string name="protection_f2">Second opinion from MalwareBazaar</string>
-    <string name="protection_f3">Apps with dangerous permissions</string>
-    <string name="protection_f4">Who can access camera, microphone, SMS</string>
 
     <!-- Cache cleaning -->
     <string name="cache_service_label">Androcleaner cache cleaner</string>
@@ -146,6 +136,122 @@
     <string name="cache_quick_title">Clear app cache</string>
     <string name="cache_quick_text">Android will show a dialog to clear the cache that apps keep in shared storage — usually the biggest part. For fully automatic per-app cleaning, install Androcleaner Full (see the project page).</string>
 
+    <!-- Photos -->
+    <string name="photos_intro">Finds similar shots and bursts, blurry photos, old screenshots and exact duplicates of any file. Everything is analyzed on the device.</string>
+    <string name="photos_analyze">Analyze</string>
+    <string name="photos_reanalyze">Analyze again</string>
+    <string name="photos_stage_files">Scanning files…</string>
+    <string name="photos_stage_photos">Analyzing photos: %1$d of %2$d</string>
+    <string name="photos_stage_duplicates">Looking for duplicates: %1$d of %2$d</string>
+    <string name="photos_offline_note">The first analysis takes a while; next time only new photos are processed.</string>
+    <string name="photos_can_free">%1$s can be freed</string>
+    <string name="section_similar">Similar photos</string>
+    <string name="section_blurry">Blurry photos</string>
+    <string name="section_screenshots">Screenshots</string>
+    <string name="section_duplicates">Duplicate files</string>
+    <string name="section_swipe">Swipe mode</string>
+    <string name="section_swipe_sub">Left — delete, right — keep</string>
+    <string name="similar_hint">We keep the sharpest photo of each series</string>
+    <string name="blurry_hint">Check before deleting: sometimes blur is intended</string>
+    <string name="screenshots_hint">Screenshots older than 30 days are preselected</string>
+    <string name="duplicates_hint">We keep one copy: the camera original or the oldest file</string>
+    <string name="best_badge">Best</string>
+    <string name="keep_badge">Will be kept</string>
+    <string name="select_none">Clear</string>
+    <string name="selected">Selected</string>
+    <string name="nothing_found">Nothing found</string>
+    <string name="nothing_found_desc">All clean here.</string>
+    <string name="swipe_keep">Keep</string>
+    <string name="swipe_delete">Delete</string>
+    <string name="swipe_undo">Undo</string>
+    <string name="swipe_progress">%1$d of %2$d</string>
+    <string name="swipe_done_title">Done</string>
+
+    <!-- Protection -->
+    <string name="protection_attention">Needs attention</string>
+    <string name="protection_permissions">Who has access</string>
+    <string name="protection_apk_files">APK files in storage</string>
+    <string name="protection_threats">Threats found: %1$d</string>
+    <string name="protection_high_risk">Apps to review: %1$d</string>
+    <string name="protection_all_good">No threats found</string>
+    <string name="protection_auditing">Checking apps…</string>
+    <string name="protection_checked">%1$d apps · %2$d APK files checked</string>
+    <string name="protection_installer">Installed by: %1$s</string>
+    <string name="protection_installer_unknown">unknown (browser, file manager or ADB)</string>
+    <string name="protection_app_settings">App settings and permissions</string>
+    <string name="cloud_title">Check with VirusTotal and MalwareBazaar</string>
+    <string name="cloud_no_keys">Check apps with 70+ antivirus engines. Add your free VirusTotal and/or MalwareBazaar key in Settings. Only file hashes are sent, never the files.</string>
+    <string name="cloud_add_key">Add key</string>
+    <string name="cloud_ready">Only SHA-256 hashes of APKs are sent.</string>
+    <string name="cloud_running">Checking %1$s (%2$d of %3$d)</string>
+    <string name="cloud_rate_note">Free VirusTotal keys allow 4 checks per minute, so this takes a while. You can leave this screen.</string>
+    <string name="cloud_finished">Checked: %1$d. Threats: %2$d.</string>
+    <string name="cloud_invalid_key">The API key was rejected. Check it in Settings.</string>
+    <string name="cloud_failed">Check failed: %1$s</string>
+    <string name="cloud_check_sideloaded">Check apps not from a store (%1$d)</string>
+    <string name="cloud_check_all">Check everything (%1$d, ~%2$d min)</string>
+    <string name="rep_malware">Known malware: %1$s</string>
+    <string name="rep_detections">Detected by %1$d of %2$d engines</string>
+    <string name="rep_clean">Clean: 0 of %1$d engines</string>
+    <string name="rep_mb_clean">Not in MalwareBazaar</string>
+    <string name="rep_unknown">VirusTotal hasn\'t seen this file yet</string>
+    <string name="rep_not_checked">Not checked yet</string>
+    <string name="finding_sideloaded">Not from a store</string>
+    <string name="finding_sideloaded_desc">Installed from a browser, file manager or ADB. Not necessarily bad, but nobody reviewed it.</string>
+    <string name="finding_accessibility">Accessibility</string>
+    <string name="finding_accessibility_desc">Can read the screen and press buttons for you. Malware abuses this to steal passwords.</string>
+    <string name="finding_admin">Device admin</string>
+    <string name="finding_admin_desc">Can lock or wipe the device and resists uninstalling.</string>
+    <string name="finding_notifications">Notification access</string>
+    <string name="finding_notifications_desc">Reads all notifications, including one-time codes.</string>
+    <string name="finding_sms">SMS</string>
+    <string name="finding_sms_desc">Can read or send text messages, including bank codes.</string>
+    <string name="finding_overlay">Draws over apps</string>
+    <string name="finding_overlay_desc">Can show windows on top of other apps — used by fake login screens.</string>
+    <string name="finding_installs">Installs apps</string>
+    <string name="finding_installs_desc">Allowed to install other apps.</string>
+    <string name="finding_hidden">No app icon</string>
+    <string name="finding_hidden_desc">Doesn\'t appear in the app drawer.</string>
+    <string name="finding_camera">Camera</string>
+    <string name="finding_camera_desc">Can take photos and videos.</string>
+    <string name="finding_microphone">Microphone</string>
+    <string name="finding_microphone_desc">Can record audio.</string>
+    <string name="finding_location">Location</string>
+    <string name="finding_location_desc">Knows where you are.</string>
+    <string name="finding_contacts">Contacts</string>
+    <string name="finding_contacts_desc">Can read your contacts.</string>
+    <string name="finding_call_log">Call log</string>
+    <string name="finding_call_log_desc">Can read your call history.</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_theme">Theme</string>
+    <string name="theme_system">System</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_dark">Dark</string>
+    <string name="settings_cache">App cache cleaning</string>
+    <string name="settings_protection">Virus scanner</string>
+    <string name="settings_keys_note">Keys are stored encrypted on this device. Only SHA-256 hashes of APKs are sent to these services.</string>
+    <string name="settings_about">About</string>
+    <string name="settings_about_text">Open source (GPL-3.0). No ads, no trackers, no accounts.</string>
+    <string name="settings_source">Source code on GitHub</string>
+    <string name="key_label">%1$s API key</string>
+    <string name="key_get">Get a free key</string>
+    <string name="key_save">Save</string>
+    <string name="key_saved">Key saved</string>
+    <string name="key_change">Change</string>
+    <string name="key_remove">Remove</string>
+    <string name="shizuku_ready">Connected: cache is cleared without opening Settings</string>
+    <string name="shizuku_no_permission">Installed and running — allow Androcleaner to use it</string>
+    <string name="shizuku_not_running">Installed but not started. Start it in the Shizuku app</string>
+    <string name="shizuku_not_installed">Clears every app\'s cache with no accessibility service and no Play Protect warnings</string>
+    <string name="shizuku_install">Install</string>
+    <string name="shizuku_open">Open Shizuku</string>
+    <string name="shizuku_grant">Allow</string>
+    <string name="shizuku_hint">Shizuku is installed: with it the cache is cleared fully, without any Settings screens.</string>
+    <string name="accessibility_on">On</string>
+    <string name="accessibility_off">Off</string>
+
     <!-- Plurals -->
     <plurals name="files_count">
         <item quantity="one">%1$d file</item>
@@ -158,5 +264,21 @@
     <plurals name="trash_days_left">
         <item quantity="one">%1$d day left</item>
         <item quantity="other">%1$d days left</item>
+    </plurals>
+    <plurals name="groups_count">
+        <item quantity="one">%1$d group</item>
+        <item quantity="other">%1$d groups</item>
+    </plurals>
+    <plurals name="photos_count">
+        <item quantity="one">%1$d photo</item>
+        <item quantity="other">%1$d photos</item>
+    </plurals>
+    <plurals name="copies_count">
+        <item quantity="one">%1$d copy</item>
+        <item quantity="other">%1$d copies</item>
+    </plurals>
+    <plurals name="swipe_done_text">
+        <item quantity="one">%1$d photo marked for deletion (%2$s).</item>
+        <item quantity="other">%1$d photos marked for deletion (%2$s).</item>
     </plurals>
 </resources>

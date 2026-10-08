@@ -14,8 +14,8 @@ android {
         applicationId = "app.androcleaner"
         minSdk = 30
         targetSdk = 36
-        versionCode = 3
-        versionName = "0.2.1"
+        versionCode = 4
+        versionName = "0.3.0"
     }
 
     // Release signing comes from env vars (CI or scripts/release-local.sh) — never commit the keystore.
@@ -66,6 +66,7 @@ android {
     buildFeatures {
         compose = true
         buildConfig = true
+        aidl = true
     }
 
     // No Google-encrypted dependency blob in the APK: F-Droid and IzzyOnDroid reject it.
@@ -99,6 +100,13 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.coil.compose)
+
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    ksp(libs.room.compiler)
+
+    implementation(libs.shizuku.api)
+    implementation(libs.shizuku.provider)
 
     testImplementation(libs.junit)
 }

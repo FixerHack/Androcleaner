@@ -41,7 +41,14 @@ import app.androcleaner.core.permissions.rememberPermissionStatus
 import app.androcleaner.feature.apps.AppsScreen
 import app.androcleaner.feature.onboarding.OnboardingScreen
 import app.androcleaner.feature.scan.ScanScreen
-import app.androcleaner.feature.soon.ComingSoonScreen
+import app.androcleaner.feature.photos.PhotoSection
+import app.androcleaner.feature.photos.PhotoSectionScreen
+import app.androcleaner.feature.photos.PhotosScreen
+import app.androcleaner.feature.photos.SwipeScreen
+import app.androcleaner.feature.protection.ProtectionScreen
+import app.androcleaner.feature.settings.SettingsScreen
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.navigation.toRoute
 import app.androcleaner.feature.storage.StorageScreen
 import app.androcleaner.feature.trash.TrashScreen
 import app.androcleaner.ui.components.LocalSnackbar
@@ -54,6 +61,9 @@ import kotlin.reflect.KClass
 @Serializable data class AppsRoute(val sortByCache: Boolean = false)
 @Serializable data object ProtectionRoute
 @Serializable data object TrashRoute
+@Serializable data class PhotoSectionRoute(val section: String)
+@Serializable data object SwipeRoute
+@Serializable data object SettingsRoute
 
 private data class Tab(val route: Any, val routeClass: KClass<*>, val icon: ImageVector, val label: Int)
 
@@ -91,7 +101,8 @@ private fun MainScaffold() {
     val snackbar = remember { SnackbarHostState() }
     val backStack by navController.currentBackStackEntryAsState()
     val destination = backStack?.destination
-    val showBottomBar = destination?.hasRoute(TrashRoute::class) != true
+    val showBottomBar = listOf(TrashRoute::class, PhotoSectionRoute::class, SwipeRoute::class, SettingsRoute::class)
+        .none { destination?.hasRoute(it) == true }
 
     Scaffold(
         containerColor = MaterialTheme.colorScheme.background,
@@ -128,6 +139,7 @@ private fun MainScaffold() {
                 composable<ScanRoute> {
                     ScanScreen(
                         onOpenTrash = { navController.navigate(TrashRoute) },
+                        onOpenSettings = { navController.navigate(SettingsRoute) },
                         onOpenAppCache = {
                             navController.navigate(AppsRoute(sortByCache = true)) {
                                 popUpTo(navController.graph.findStartDestination().id) { saveState = true }
@@ -138,22 +150,27 @@ private fun MainScaffold() {
                 }
                 composable<StorageRoute> { StorageScreen() }
                 composable<PhotosRoute> {
-                    ComingSoonScreen(
-                        Icons.Rounded.PhotoLibrary,
-                        R.string.photos_title,
-                        R.string.photos_desc,
-                        listOf(R.string.photos_f1, R.string.photos_f2, R.string.photos_f3, R.string.photos_f4, R.string.photos_f5),
+                    PhotosScreen(
+                        onOpenSection = { navController.navigate(PhotoSectionRoute(it.name)) },
+                        onOpenSwipe = { navController.navigate(SwipeRoute) },
                     )
+                }
+                composable<PhotoSectionRoute> { entry ->
+                    // Share the photos view model with the hub so selection survives navigation.
+                    val parent = remember(entry) { navController.getBackStackEntry<PhotosRoute>() }
+                    PhotoSectionScreen(
+                        section = PhotoSection.valueOf(entry.toRoute<PhotoSectionRoute>().section),
+                        onBack = { navController.popBackStack() },
+                        viewModel = hiltViewModel(parent),
+                    )
+                }
+                composable<SwipeRoute> { entry ->
+                    val parent = remember(entry) { navController.getBackStackEntry<PhotosRoute>() }
+                    SwipeScreen(onBack = { navController.popBackStack() }, viewModel = hiltViewModel(parent))
                 }
                 composable<AppsRoute> { AppsScreen() }
-                composable<ProtectionRoute> {
-                    ComingSoonScreen(
-                        Icons.Rounded.Shield,
-                        R.string.protection_title,
-                        R.string.protection_desc,
-                        listOf(R.string.protection_f1, R.string.protection_f2, R.string.protection_f3, R.string.protection_f4),
-                    )
-                }
+                composable<ProtectionRoute> { ProtectionScreen(onOpenSettings = { navController.navigate(SettingsRoute) }) }
+                composable<SettingsRoute> { SettingsScreen(onBack = { navController.popBackStack() }) }
                 composable<TrashRoute> { TrashScreen(onBack = { navController.popBackStack() }) }
             }
         }

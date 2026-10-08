@@ -1,0 +1,5 @@
+- Photos: similar shots, blurry photos, screenshots, swipe mode
+- Exact duplicates of any file
+- Protection: permission audit, VirusTotal and MalwareBazaar (your own key)
+- Shizuku: full app cache cleaning without accessibility
+- Settings: theme, API keys

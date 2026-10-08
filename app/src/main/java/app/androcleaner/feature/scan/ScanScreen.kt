@@ -36,6 +36,7 @@ import androidx.compose.material.icons.rounded.ExpandMore
 import androidx.compose.material.icons.rounded.FolderOff
 import androidx.compose.material.icons.rounded.Inventory2
 import androidx.compose.material.icons.rounded.PhotoLibrary
+import androidx.compose.material.icons.rounded.Settings
 import androidx.compose.material.icons.rounded.Speed
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Checkbox
@@ -88,6 +89,7 @@ private const val MAX_VISIBLE_ITEMS = 50
 @Composable
 fun ScanScreen(
     onOpenTrash: () -> Unit,
+    onOpenSettings: () -> Unit,
     onOpenAppCache: () -> Unit,
     viewModel: ScanViewModel = hiltViewModel(),
 ) {
@@ -119,6 +121,9 @@ fun ScanScreen(
                     Text(stringResource(R.string.app_name), style = MaterialTheme.typography.headlineMedium, modifier = Modifier.weight(1f))
                     IconButton(onClick = onOpenTrash) {
                         Icon(Icons.Rounded.DeleteOutline, contentDescription = stringResource(R.string.trash))
+                    }
+                    IconButton(onClick = onOpenSettings) {
+                        Icon(Icons.Rounded.Settings, contentDescription = stringResource(R.string.settings_title))
                     }
                 }
             }

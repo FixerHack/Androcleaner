@@ -86,6 +86,17 @@ Disclosure: the code was written with the help of an AI assistant and reviewed b
 Нічого подавати не треба: `UpdateCheckMode: Tags` — F-Droid сам знайде новий тег `vX.Y.Z`,
 якщо в `app/build.gradle.kts` піднято `versionCode` і `versionName`, а на GitHub є реліз з `Androcleaner-Full-vX.Y.Z.apk`.
 
+## Версія 0.3.0+ і мережа
+
+З 0.3.0 апка має дозвіл INTERNET для необовʼязкових запитів до VirusTotal і MalwareBazaar
+(пропрієтарні сервіси). F-Droid позначає таке як anti-feature `NonFreeNet` — при оновленні метаданих додайте:
+
+```yaml
+AntiFeatures:
+  NonFreeNet:
+    en-US: Optional hash lookups on VirusTotal and MalwareBazaar with the user's own API key.
+```
+
 ## IzzyOnDroid — не підходить
 
 Їхня політика відхиляє апки, код яких повністю або частково створено генеративним ШІ:

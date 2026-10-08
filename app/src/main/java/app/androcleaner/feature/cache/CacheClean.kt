@@ -33,6 +33,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewModelScope
 import app.androcleaner.R
+import app.androcleaner.core.shizuku.ShizukuManager
+import app.androcleaner.core.shizuku.ShizukuStatus
 import app.androcleaner.feature.apps.AppInfo
 import app.androcleaner.feature.apps.AppsRepository
 import app.androcleaner.ui.components.LocalSnackbar
@@ -49,8 +51,22 @@ sealed interface CacheTarget {
 class CacheCleanViewModel @Inject constructor(
     private val cleaner: AppCacheCleaner,
     private val apps: AppsRepository,
+    private val shizuku: ShizukuManager,
 ) : ViewModel() {
     val state = cleaner.state
+    val shizukuStatus = shizuku.status
+
+    /** Shizuku or the accessibility service can clean without asking anything. */
+    val canAutoClean: Boolean get() = shizuku.isReady || cleaner.isServiceEnabled
+
+    fun connectShizuku() {
+        shizuku.refresh()
+        when (shizuku.status.value) {
+            ShizukuStatus.NO_PERMISSION -> shizuku.requestPermission()
+            ShizukuStatus.NOT_RUNNING -> shizuku.openShizukuApp()
+            else -> Unit
+        }
+    }
 
     val isServiceEnabled: Boolean get() = cleaner.isServiceEnabled
     val isAutoCleanAvailable: Boolean get() = cleaner.isAutoCleanAvailable
@@ -63,7 +79,7 @@ class CacheCleanViewModel @Inject constructor(
                     .filter { (it.sizes?.cacheBytes ?: 0) >= MIN_CACHE_BYTES }
                     .sortedByDescending { it.sizes?.cacheBytes ?: 0 }
             }
-            cleaner.start(targets)
+            if (shizuku.isReady) cleaner.startShell(targets, allApps = target == CacheTarget.AllApps) else cleaner.start(targets)
         }
     }
 
@@ -86,6 +102,7 @@ fun rememberCacheCleaner(onFinished: () -> Unit): (CacheTarget) -> Unit {
     val resources = LocalResources.current
     val snackbar = LocalSnackbar.current
     val state by viewModel.state.collectAsStateWithLifecycle()
+    val shizukuStatus by viewModel.shizukuStatus.collectAsStateWithLifecycle()
     var pending by remember { mutableStateOf<CacheTarget?>(null) }
 
     val quickClean = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) {
@@ -116,7 +133,12 @@ fun rememberCacheCleaner(onFinished: () -> Unit): (CacheTarget) -> Unit {
                 onDismissRequest = { pending = null },
                 icon = { Icon(Icons.Rounded.CleaningServices, null) },
                 title = { Text(stringResource(R.string.cache_quick_title)) },
-                text = { Text(stringResource(R.string.cache_quick_text)) },
+                text = {
+                    Column {
+                        Text(stringResource(R.string.cache_quick_text))
+                        ShizukuHint(shizukuStatus) { pending = null; viewModel.connectShizuku() }
+                    }
+                },
                 confirmButton = { TextButton(onClick = launchQuickClean) { Text(stringResource(R.string.cache_clean_button)) } },
                 dismissButton = { TextButton(onClick = { pending = null }) { Text(stringResource(R.string.cancel)) } },
             )
@@ -135,6 +157,7 @@ fun rememberCacheCleaner(onFinished: () -> Unit): (CacheTarget) -> Unit {
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                     )
+                    ShizukuHint(shizukuStatus) { pending = null; viewModel.connectShizuku() }
                 }
             },
             confirmButton = {
@@ -153,7 +176,18 @@ fun rememberCacheCleaner(onFinished: () -> Unit): (CacheTarget) -> Unit {
         )
     }
 
-    return { target -> if (viewModel.isServiceEnabled) viewModel.clean(target) else pending = target }
+    return { target -> if (viewModel.canAutoClean) viewModel.clean(target) else pending = target }
+}
+
+/** Mentions Shizuku when it's installed but not connected yet. */
+@Composable
+private fun ShizukuHint(status: ShizukuStatus, onConnect: () -> Unit) {
+    if (status == ShizukuStatus.NOT_INSTALLED || status == ShizukuStatus.READY) return
+    Spacer(Modifier.height(12.dp))
+    Text(stringResource(R.string.shizuku_hint), style = MaterialTheme.typography.bodySmall)
+    TextButton(onClick = onConnect) {
+        Text(stringResource(if (status == ShizukuStatus.NOT_RUNNING) R.string.shizuku_open else R.string.shizuku_grant))
+    }
 }
 
 private fun openAccessibilitySettings(context: android.content.Context) {

@@ -105,20 +105,10 @@
     <string name="trash_restored">Відновлено</string>
 
     <!-- Coming soon -->
-    <string name="soon_badge">Незабаром</string>
     <string name="photos_title">Фото</string>
     <string name="photos_desc">Розумний розбір галереї офлайн</string>
-    <string name="photos_f1">Схожі фото та серії — залишимо найкраще</string>
-    <string name="photos_f2">Розмиті фото</string>
-    <string name="photos_f3">Старі скріншоти</string>
-    <string name="photos_f4">Точні дублікати будь-яких файлів</string>
-    <string name="photos_f5">Свайп-режим «залишити / видалити»</string>
     <string name="protection_title">Захист</string>
     <string name="protection_desc">Чесний вірус-сканер без залякувань</string>
-    <string name="protection_f1">Перевірка апок і APK через VirusTotal (ваш ключ)</string>
-    <string name="protection_f2">Друга думка від MalwareBazaar</string>
-    <string name="protection_f3">Апки з небезпечними дозволами</string>
-    <string name="protection_f4">Хто має доступ до камери, мікрофона, SMS</string>
 
     <!-- Очищення кешу -->
     <string name="cache_service_label">Очищення кешу Androcleaner</string>
@@ -145,6 +135,122 @@
     <string name="cache_quick_title">Очищення кешу апок</string>
     <string name="cache_quick_text">Android покаже вікно для очищення кешу, який апки тримають у спільному сховищі — зазвичай це найбільша частина. Для повністю автоматичного очищення кожної апки встановіть Androcleaner Full (див. сторінку проєкту).</string>
 
+    <!-- Фото -->
+    <string name="photos_intro">Знайде схожі кадри й серії, розмиті фото, старі скріншоти і точні дублікати будь-яких файлів. Усе аналізується на пристрої.</string>
+    <string name="photos_analyze">Аналізувати</string>
+    <string name="photos_reanalyze">Аналізувати знову</string>
+    <string name="photos_stage_files">Сканую файли…</string>
+    <string name="photos_stage_photos">Аналізую фото: %1$d з %2$d</string>
+    <string name="photos_stage_duplicates">Шукаю дублікати: %1$d з %2$d</string>
+    <string name="photos_offline_note">Перший аналіз триває довше; наступного разу обробляться лише нові фото.</string>
+    <string name="photos_can_free">Можна звільнити %1$s</string>
+    <string name="section_similar">Схожі фото</string>
+    <string name="section_blurry">Розмиті фото</string>
+    <string name="section_screenshots">Скріншоти</string>
+    <string name="section_duplicates">Дублікати файлів</string>
+    <string name="section_swipe">Свайп-режим</string>
+    <string name="section_swipe_sub">Вліво — видалити, вправо — залишити</string>
+    <string name="similar_hint">Залишаємо найчіткіше фото з кожної серії</string>
+    <string name="blurry_hint">Перевірте перед видаленням: іноді розмитість задумана</string>
+    <string name="screenshots_hint">Скріншоти, старші за 30 днів, вибрано автоматично</string>
+    <string name="duplicates_hint">Залишаємо одну копію: оригінал з камери або найстаріший файл</string>
+    <string name="best_badge">Найкраще</string>
+    <string name="keep_badge">Залишиться</string>
+    <string name="select_none">Зняти</string>
+    <string name="selected">Вибрано</string>
+    <string name="nothing_found">Нічого не знайдено</string>
+    <string name="nothing_found_desc">Тут чисто.</string>
+    <string name="swipe_keep">Залишити</string>
+    <string name="swipe_delete">Видалити</string>
+    <string name="swipe_undo">Назад</string>
+    <string name="swipe_progress">%1$d з %2$d</string>
+    <string name="swipe_done_title">Готово</string>
+
+    <!-- Захист -->
+    <string name="protection_attention">Потребують уваги</string>
+    <string name="protection_permissions">Хто має доступ</string>
+    <string name="protection_apk_files">APK-файли у сховищі</string>
+    <string name="protection_threats">Знайдено загроз: %1$d</string>
+    <string name="protection_high_risk">Апок для перевірки: %1$d</string>
+    <string name="protection_all_good">Загроз не знайдено</string>
+    <string name="protection_auditing">Перевіряю апки…</string>
+    <string name="protection_checked">Перевірено апок: %1$d · APK-файлів: %2$d</string>
+    <string name="protection_installer">Встановлено через: %1$s</string>
+    <string name="protection_installer_unknown">невідомо (браузер, файловий менеджер або ADB)</string>
+    <string name="protection_app_settings">Налаштування та дозволи апки</string>
+    <string name="cloud_title">Перевірка VirusTotal і MalwareBazaar</string>
+    <string name="cloud_no_keys">Перевірте апки 70+ антивірусами. Додайте свій безкоштовний ключ VirusTotal та/або MalwareBazaar у налаштуваннях. Надсилаються лише хеші, а не самі файли.</string>
+    <string name="cloud_add_key">Додати ключ</string>
+    <string name="cloud_ready">Надсилаються лише SHA-256 хеші APK.</string>
+    <string name="cloud_running">Перевіряю %1$s (%2$d з %3$d)</string>
+    <string name="cloud_rate_note">Безкоштовний ключ VirusTotal дозволяє 4 перевірки на хвилину, тож це триває довго. Можна вийти з цього екрана.</string>
+    <string name="cloud_finished">Перевірено: %1$d. Загроз: %2$d.</string>
+    <string name="cloud_invalid_key">API-ключ відхилено. Перевірте його в налаштуваннях.</string>
+    <string name="cloud_failed">Помилка перевірки: %1$s</string>
+    <string name="cloud_check_sideloaded">Перевірити встановлені не з магазину (%1$d)</string>
+    <string name="cloud_check_all">Перевірити все (%1$d, ~%2$d хв)</string>
+    <string name="rep_malware">Відоме шкідливе ПЗ: %1$s</string>
+    <string name="rep_detections">Виявлено %1$d з %2$d антивірусів</string>
+    <string name="rep_clean">Чисто: 0 з %1$d антивірусів</string>
+    <string name="rep_mb_clean">Немає в MalwareBazaar</string>
+    <string name="rep_unknown">VirusTotal ще не бачив цей файл</string>
+    <string name="rep_not_checked">Ще не перевірено</string>
+    <string name="finding_sideloaded">Не з магазину</string>
+    <string name="finding_sideloaded_desc">Встановлено з браузера, файлового менеджера або ADB. Не обовʼязково погано, але апку ніхто не перевіряв.</string>
+    <string name="finding_accessibility">Спецможливості</string>
+    <string name="finding_accessibility_desc">Може читати екран і натискати кнопки за вас. Шкідливі апки використовують це, щоб красти паролі.</string>
+    <string name="finding_admin">Адміністратор пристрою</string>
+    <string name="finding_admin_desc">Може заблокувати чи стерти пристрій і заважає видаленню.</string>
+    <string name="finding_notifications">Доступ до сповіщень</string>
+    <string name="finding_notifications_desc">Читає всі сповіщення, зокрема одноразові коди.</string>
+    <string name="finding_sms">SMS</string>
+    <string name="finding_sms_desc">Може читати чи надсилати SMS, зокрема банківські коди.</string>
+    <string name="finding_overlay">Поверх інших вікон</string>
+    <string name="finding_overlay_desc">Може показувати вікна поверх інших апок — так працюють фейкові форми входу.</string>
+    <string name="finding_installs">Встановлює апки</string>
+    <string name="finding_installs_desc">Має дозвіл встановлювати інші апки.</string>
+    <string name="finding_hidden">Без іконки</string>
+    <string name="finding_hidden_desc">Не показується в меню апок.</string>
+    <string name="finding_camera">Камера</string>
+    <string name="finding_camera_desc">Може знімати фото й відео.</string>
+    <string name="finding_microphone">Мікрофон</string>
+    <string name="finding_microphone_desc">Може записувати звук.</string>
+    <string name="finding_location">Геолокація</string>
+    <string name="finding_location_desc">Знає, де ви.</string>
+    <string name="finding_contacts">Контакти</string>
+    <string name="finding_contacts_desc">Може читати ваші контакти.</string>
+    <string name="finding_call_log">Журнал дзвінків</string>
+    <string name="finding_call_log_desc">Може читати історію дзвінків.</string>
+
+    <!-- Налаштування -->
+    <string name="settings_title">Налаштування</string>
+    <string name="settings_theme">Тема</string>
+    <string name="theme_system">Системна</string>
+    <string name="theme_light">Світла</string>
+    <string name="theme_dark">Темна</string>
+    <string name="settings_cache">Очищення кешу апок</string>
+    <string name="settings_protection">Вірус-сканер</string>
+    <string name="settings_keys_note">Ключі зберігаються зашифрованими на цьому пристрої. Сервісам надсилаються лише SHA-256 хеші APK.</string>
+    <string name="settings_about">Про апку</string>
+    <string name="settings_about_text">Відкритий код (GPL-3.0). Без реклами, трекерів і акаунтів.</string>
+    <string name="settings_source">Код на GitHub</string>
+    <string name="key_label">API-ключ %1$s</string>
+    <string name="key_get">Отримати безкоштовний ключ</string>
+    <string name="key_save">Зберегти</string>
+    <string name="key_saved">Ключ збережено</string>
+    <string name="key_change">Змінити</string>
+    <string name="key_remove">Видалити</string>
+    <string name="shizuku_ready">Підключено: кеш чиститься без відкриття налаштувань</string>
+    <string name="shizuku_no_permission">Встановлено й запущено — дозвольте Androcleaner ним користуватись</string>
+    <string name="shizuku_not_running">Встановлено, але не запущено. Запустіть у застосунку Shizuku</string>
+    <string name="shizuku_not_installed">Чистить кеш усіх апок без спецможливостей і без попереджень Play Захисту</string>
+    <string name="shizuku_install">Встановити</string>
+    <string name="shizuku_open">Відкрити Shizuku</string>
+    <string name="shizuku_grant">Дозволити</string>
+    <string name="shizuku_hint">Shizuku встановлено: з ним кеш очищається повністю, без жодних екранів налаштувань.</string>
+    <string name="accessibility_on">Увімкнено</string>
+    <string name="accessibility_off">Вимкнено</string>
+
     <!-- Plurals -->
     <plurals name="files_count">
         <item quantity="one">%1$d файл</item>
@@ -163,5 +269,29 @@
         <item quantity="few">ще %1$d дні</item>
         <item quantity="many">ще %1$d днів</item>
         <item quantity="other">ще %1$d дня</item>
+    </plurals>
+    <plurals name="groups_count">
+        <item quantity="one">%1$d група</item>
+        <item quantity="few">%1$d групи</item>
+        <item quantity="many">%1$d груп</item>
+        <item quantity="other">%1$d групи</item>
+    </plurals>
+    <plurals name="photos_count">
+        <item quantity="one">%1$d фото</item>
+        <item quantity="few">%1$d фото</item>
+        <item quantity="many">%1$d фото</item>
+        <item quantity="other">%1$d фото</item>
+    </plurals>
+    <plurals name="copies_count">
+        <item quantity="one">%1$d копія</item>
+        <item quantity="few">%1$d копії</item>
+        <item quantity="many">%1$d копій</item>
+        <item quantity="other">%1$d копії</item>
+    </plurals>
+    <plurals name="swipe_done_text">
+        <item quantity="one">Позначено до видалення %1$d фото (%2$s).</item>
+        <item quantity="few">Позначено до видалення %1$d фото (%2$s).</item>
+        <item quantity="many">Позначено до видалення %1$d фото (%2$s).</item>
+        <item quantity="other">Позначено до видалення %1$d фото (%2$s).</item>
     </plurals>
 </resources>

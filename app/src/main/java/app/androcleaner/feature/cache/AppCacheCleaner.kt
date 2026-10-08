@@ -2,6 +2,7 @@ package app.androcleaner.feature.cache
 
 import android.content.Context
 import app.androcleaner.BuildConfig
+import app.androcleaner.core.shizuku.ShizukuManager
 import android.accessibilityservice.AccessibilityServiceInfo
 import android.view.accessibility.AccessibilityManager
 import app.androcleaner.feature.apps.AppInfo
@@ -45,6 +46,7 @@ sealed interface CacheCleanState {
 class AppCacheCleaner @Inject constructor(
     @ApplicationContext private val context: Context,
     private val apps: AppsRepository,
+    private val shizuku: ShizukuManager,
 ) {
     // Node lookups are blocking IPC calls, so the whole loop runs off the main thread.
     private val scope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
@@ -81,6 +83,36 @@ class AppCacheCleaner @Inject constructor(
                 withContext(NonCancellable + Dispatchers.Main) {
                     svc.hideOverlay()
                     svc.returnToApp()
+                }
+            }
+            delay(SIZE_SETTLE_MS)
+            val freed = targets.sumOf { app ->
+                val before = app.sizes?.cacheBytes ?: 0L
+                val after = apps.cacheBytes(app.packageName) ?: before
+                (before - after).coerceAtLeast(0)
+            }
+            _state.value = CacheCleanState.Finished(freed, cleaned, failed)
+        }
+    }
+
+    /** Clears caches with shell rights via Shizuku: no Settings screens involved. */
+    fun startShell(targets: List<AppInfo>, allApps: Boolean) {
+        if (targets.isEmpty() || job?.isActive == true) return
+        job = scope.launch {
+            var cleaned = 0
+            var failed = 0
+            if (allApps) {
+                _state.value = CacheCleanState.Running("", 1, 1)
+                if (shizuku.clearAllCaches()) cleaned = targets.size else failed = targets.size
+            } else {
+                for ((i, app) in targets.withIndex()) {
+                    _state.value = CacheCleanState.Running(app.label, i + 1, targets.size)
+                    when {
+                        shizuku.clearCache(app.packageName) -> cleaned++
+                        // `pm clear --cache-only` unsupported on this build: trim all caches once instead.
+                        shizuku.clearAllCaches() -> { cleaned = targets.size; break }
+                        else -> failed++
+                    }
                 }
             }
             delay(SIZE_SETTLE_MS)

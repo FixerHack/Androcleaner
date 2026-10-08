@@ -1,5 +1,10 @@
 package app.androcleaner.ui.components
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -127,6 +132,19 @@ fun EmptyState(
             Spacer(Modifier.height(8.dp))
             action()
         }
+    }
+}
+
+/** Gradient action button that slides in from the bottom while [visible]. */
+@Composable
+fun BottomAction(visible: Boolean, text: String, onClick: () -> Unit, modifier: Modifier = Modifier) {
+    AnimatedVisibility(
+        visible = visible,
+        enter = slideInVertically { it } + fadeIn(),
+        exit = slideOutVertically { it } + fadeOut(),
+        modifier = modifier.padding(16.dp),
+    ) {
+        GradientButton(text, onClick, Modifier.fillMaxWidth())
     }
 }
 
