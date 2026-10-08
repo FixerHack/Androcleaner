@@ -1,4 +1,4 @@
-# Metadata for the F-Droid inclusion merge request (formatted with fdroid rewritemeta).
+# Metadata for the F-Droid inclusion merge request (exactly as accepted by F-Droid CI).
 # Copy to fdroiddata/metadata/app.androcleaner.yml without these comment lines.
 Categories:
   - App Manager
@@ -24,8 +24,7 @@ Builds:
     gradle:
       - full
 
-AllowedAPKSigningKeys: 
-  c3d15f4402dc1787b1eaaebb93259b7c77c5dc4fd2378828a9616cc3e8fc471a
+AllowedAPKSigningKeys: c3d15f4402dc1787b1eaaebb93259b7c77c5dc4fd2378828a9616cc3e8fc471a
 
 AutoUpdateMode: Version
 UpdateCheckMode: Tags ^v[0-9.]+$
