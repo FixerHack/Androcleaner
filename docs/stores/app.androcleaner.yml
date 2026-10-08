@@ -1,6 +1,7 @@
 # Metadata for the F-Droid inclusion merge request.
 # Copy to fdroiddata/metadata/app.androcleaner.yml in your fork of https://gitlab.com/fdroid/fdroiddata
 Categories:
+  - App Manager
   - System
 License: GPL-3.0-only
 AuthorName: FixerHack
