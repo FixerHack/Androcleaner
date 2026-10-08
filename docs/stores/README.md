@@ -75,6 +75,10 @@ Disclosure: the code was written with the help of an AI assistant and reviewed b
 4. Час: рецензенти — волонтери, включення займає від кількох тижнів до місяців.
    Після merge апка з'являється в F-Droid за 24–48 годин.
 
+## Нова версія в метаданих
+
+У полі `commit` F-Droid вимагає **повний хеш коміту**, а не тег: `git rev-parse vX.Y.Z^{commit}`.
+
 ## 6. Оновлення
 
 Нічого подавати не треба: `UpdateCheckMode: Tags` — F-Droid сам знайде новий тег `vX.Y.Z`,

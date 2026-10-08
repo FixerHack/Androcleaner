@@ -19,7 +19,7 @@ Binaries: https://github.com/FixerHack/Androcleaner/releases/download/v%v/Androc
 Builds:
   - versionName: 0.2.1
     versionCode: 3
-    commit: v0.2.1
+    commit: 1066c67c8127e554e99b66b18bf0ae03c353f328
     subdir: app
     gradle:
       - full
