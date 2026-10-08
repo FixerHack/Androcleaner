@@ -78,6 +78,8 @@ Disclosure: the code was written with the help of an AI assistant and reviewed b
 ## Нова версія в метаданих
 
 У полі `commit` F-Droid вимагає **повний хеш коміту**, а не тег: `git rev-parse vX.Y.Z^{commit}`.
+Реліз треба збирати саме з цього коміту (`git checkout vX.Y.Z`, потім `scripts/release-local.sh vX.Y.Z`) —
+скрипт перевіряє це сам. Виняток — v0.2.1: її APK зібрано з `753dbbd` (код ідентичний тегу), тому в метаданих стоїть цей коміт.
 
 ## 6. Оновлення
 

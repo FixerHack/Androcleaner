@@ -20,6 +20,13 @@ export ANDROCLEANER_KEY_ALIAS="${KEY_ALIAS:-androcleaner}"
 export ANDROCLEANER_KEY_PASSWORD="$PASSWORD"
 
 cd "$(dirname "$0")/.."
+
+# F-Droid rebuilds the tagged commit and compares it with our APK, so build exactly that commit.
+TAG_COMMIT="$(git rev-parse "$TAG^{commit}" 2>/dev/null)" || { echo "Tag $TAG not found. Create and push it first." >&2; exit 1; }
+if [[ "$(git rev-parse HEAD)" != "$TAG_COMMIT" || -n "$(git status --porcelain -- app gradle build.gradle.kts settings.gradle.kts gradle.properties)" ]]; then
+    echo "HEAD is not at $TAG or there are uncommitted build changes. Run: git checkout $TAG" >&2
+    exit 1
+fi
 ./gradlew testStandardDebugUnitTest assembleStandardRelease assembleFullRelease
 
 mkdir -p build

@@ -32,6 +32,9 @@ android {
     buildTypes {
         release {
             signingConfig = signingConfigs.findByName("release")
+            // Don't embed the git commit hash: it would make F-Droid's reproducible build
+            // differ whenever the APK isn't built from exactly the tagged commit.
+            vcsInfo.include = false
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
